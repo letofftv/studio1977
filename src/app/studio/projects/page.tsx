@@ -4,7 +4,7 @@ import { BitrixClient, BitrixSession } from "@/lib/bitrix-api";
 import styles from "../page.module.css";
 
 export const metadata = {
-  title: "Projects — Studio 1977",
+  title: "Проекты — Студия 1977",
 };
 
 export default async function ProjectsPage() {
@@ -24,18 +24,18 @@ export default async function ProjectsPage() {
           <span className={styles.logoText}>Studio 1977</span>
         </div>
         <nav className={styles.sidebarNav}>
-          <Link href="/studio">Dashboard</Link>
-          <Link href="/studio/projects" className={styles.navActive}>Projects</Link>
-          <Link href="/studio/tasks">Tasks</Link>
-          <Link href="/studio/clients">Clients</Link>
-          <Link href="/studio/leads">Leads</Link>
-          <Link href="/studio/team">Team</Link>
+          <Link href="/studio">Дашборд</Link>
+          <Link href="/studio/projects" className={styles.navActive}>Проекты</Link>
+          <Link href="/studio/tasks">Задачи</Link>
+          <Link href="/studio/clients">Клиенты</Link>
+          <Link href="/studio/leads">Лиды</Link>
+          <Link href="/studio/team">Команда</Link>
         </nav>
         <div className={styles.userProfile}>
-          <div className={styles.avatar}>USR</div>
+          <div className={styles.avatar}>ID</div>
           <div className={styles.userInfo}>
-            <div className={styles.userName}>User #{session.userId}</div>
-            <div className={styles.userRole}>1977 Premium Partner</div>
+            <div className={styles.userName}>Сотрудник #{session.userId}</div>
+            <div className={styles.userRole}>Команда 1977</div>
           </div>
         </div>
       </aside>
@@ -43,8 +43,8 @@ export default async function ProjectsPage() {
       <main className={styles.main}>
         <header className={styles.header}>
           <div className={styles.headerInfo}>
-            <h1>Projects</h1>
-            <p>Active Ventures / Overview</p>
+            <h1>Проекты</h1>
+            <p>Активные сделки / Обзор</p>
           </div>
         </header>
 
@@ -53,9 +53,9 @@ export default async function ProjectsPage() {
             <div className={styles.table}>
               <div className={styles.tableHead}>
                 <span>ID</span>
-                <span>Project Name</span>
-                <span>Company</span>
-                <span>Stage</span>
+                <span>Название проекта</span>
+                <span>Компания</span>
+                <span>Стадия сделки</span>
               </div>
               {projects.length > 0 ? (
                 projects.map((p: any) => (
@@ -67,7 +67,7 @@ export default async function ProjectsPage() {
                   </div>
                 ))
               ) : (
-                <div className={styles.empty}>No active projects found.</div>
+                <div className={styles.empty}>Активных проектов не найдено.</div>
               )}
             </div>
           </section>

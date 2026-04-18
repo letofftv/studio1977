@@ -1,5 +1,3 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import Link from "next/link";
 import styles from "./page.module.css";
 
@@ -10,14 +8,23 @@ export const metadata = {
 
 export default function LoginPage() {
   return (
-    <>
-      <Header />
-      <main className={styles.main}>
+    <main className={styles.main}>
+      <div className={styles.loginContainer}>
+        <div className={styles.logoRow}>
+          <Link href="/" className={styles.backLink}>← На сайт</Link>
+          <div className={styles.logo}>
+            <span className={styles.logoMark}>Portal</span>
+            <span className={styles.logoText}>Studio 1977</span>
+          </div>
+        </div>
+        
         <section className={styles.loginSection}>
           <div className={styles.card}>
-            <p className="section-label">Авторизация</p>
-            <h1 className={styles.title}>Studio Factory</h1>
-            <p className={styles.subtitle}>Войдите под своим корпоративным аккаунтом Битрикс24, чтобы получить доступ к задачам и проектам.</p>
+            <p className={styles.label}>Авторизация</p>
+            <h1 className={styles.title}>Фабрика 1977</h1>
+            <p className={styles.subtitle}>
+              Войдите под своим корпоративным аккаунтом Битрикс24, чтобы получить доступ к своим задачам и проектам.
+            </p>
             
             <Link href="/api/auth/login" className={`${styles.loginBtn} btn btn-primary`}>
               Войти через Битрикс24
@@ -28,8 +35,11 @@ export default function LoginPage() {
             </div>
           </div>
         </section>
-      </main>
-      <Footer />
-    </>
+
+        <footer className={styles.footer}>
+          © 1977 STUDIO. ALL RIGHTS RESERVED.
+        </footer>
+      </div>
+    </main>
   );
 }

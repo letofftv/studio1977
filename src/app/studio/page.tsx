@@ -4,7 +4,7 @@ import { BitrixClient, BitrixSession } from "@/lib/bitrix-api";
 import styles from "./page.module.css";
 
 export const metadata = {
-  title: "Workspace — Studio 1977",
+  title: "Рабочее пространство — Студия 1977",
   robots: "noindex, nofollow",
 };
 
@@ -35,7 +35,7 @@ export default async function StudioDashboard() {
   ]);
 
   const activeProject = projects[0] || { TITLE: "Проект не выбран", STAGE_ID: "Подготовка" };
-  const completionPercent = projects[0] ? 64 : 0; // Mock percent for design, link to Bitrix fields if available
+  const completionPercent = projects[0] ? 64 : 0; 
 
   return (
     <div className={styles.layout}>
@@ -47,29 +47,29 @@ export default async function StudioDashboard() {
         </div>
         <nav className={styles.sidebarNav}>
           <Link href="/studio" className={styles.navActive}>
-            <span>Dashboard</span>
+            <span>Дашборд</span>
           </Link>
           <Link href="/studio/projects">
-            <span>Projects</span>
+            <span>Проекты</span>
           </Link>
           <Link href="/studio/tasks">
-            <span>Tasks</span>
+            <span>Задачи</span>
           </Link>
           <Link href="/studio/clients">
-            <span>Clients</span>
+            <span>Клиенты</span>
           </Link>
           <Link href="/studio/leads">
-            <span>Leads</span>
+            <span>Лиды</span>
           </Link>
           <Link href="/studio/team">
-            <span>Team</span>
+            <span>Команда</span>
           </Link>
         </nav>
         <div className={styles.userProfile}>
-          <div className={styles.avatar}>USR</div>
+          <div className={styles.avatar}>ID</div>
           <div className={styles.userInfo}>
-            <div className={styles.userName}>User #{session.userId}</div>
-            <div className={styles.userRole}>1977 Premium Partner</div>
+            <div className={styles.userName}>Сотрудник #{session.userId}</div>
+            <div className={styles.userRole}>Команда 1977</div>
           </div>
         </div>
       </aside>
@@ -78,15 +78,15 @@ export default async function StudioDashboard() {
       <main className={styles.main}>
         <header className={styles.header}>
           <div className={styles.headerInfo}>
-            <h1>Workspace</h1>
-            <p>{activeProject.TITLE} / Overview</p>
+            <h1>Рабочее пространство</h1>
+            <p>{activeProject.TITLE} / Обзор</p>
           </div>
           <div className={styles.headerActions}>
             <Link href="/contact" className="btn btn-outline" style={{ border: "1px solid rgba(155, 143, 131, 0.2)", fontSize: "0.75rem" }}>
-              Support
+              Поддержка
             </Link>
             <Link href="/brief" className="btn btn-primary" style={{ fontSize: "0.75rem", background: "linear-gradient(135deg, #e6c093 0%, #8C6D46 100%)" }}>
-              New Project
+              Новый проект
             </Link>
           </div>
         </header>
@@ -102,22 +102,22 @@ export default async function StudioDashboard() {
                 </div>
                 <div style={{ textAlign: "right" }}>
                   <div className={styles.progressValue}>{completionPercent}%</div>
-                  <div className={styles.progressLabel}>Completion</div>
+                  <div className={styles.progressLabel}>Завершено</div>
                 </div>
               </div>
               <div className={styles.progressBar}>
                 <div className={styles.progressFill} style={{ width: `${completionPercent}%` }} />
               </div>
               <div className={styles.progressMeta}>
-                <span>Phase 02: Execution</span>
-                <span>Phase 03: Delivery</span>
+                <span>Фаза 02: Исполнение</span>
+                <span>Фаза 03: Сдача</span>
               </div>
             </section>
 
             {/* Right Column: Quick Actions */}
             <aside className={styles.sideSection}>
               <div className={styles.actionPanel}>
-                <span className={styles.actionLabel}>Quick Actions</span>
+                <span className={styles.actionLabel}>Быстрые действия</span>
                 <Link href="/studio/tasks" className={styles.actionBtn}>
                   <div className={styles.actionInfo}>
                     <span className={styles.actionText}>Задачи ({tasks.length})</span>
@@ -132,7 +132,7 @@ export default async function StudioDashboard() {
                 </Link>
                 <Link href="https://t.me/letoff_tv" target="_blank" className={styles.actionBtn}>
                   <div className={styles.actionInfo}>
-                    <span className={styles.actionText}>Связаться в TG</span>
+                    <span className={styles.actionText}>Telegram чат</span>
                   </div>
                   <span style={{ opacity: 0.3 }}>→</span>
                 </Link>
@@ -142,8 +142,8 @@ export default async function StudioDashboard() {
             {/* Bento Gallery (Lower Left) */}
             <section className={styles.bentoSection}>
               <div className={styles.bentoHeader}>
-                <h3 className={styles.bentoTitle}>Latest Renders & Assets</h3>
-                <Link href="/cases" className={styles.progressLabel} style={{ textDecoration: "underline" }}>View Gallery</Link>
+                <h3 className={styles.bentoTitle}>Последние материалы</h3>
+                <Link href="/cases" className={styles.progressLabel} style={{ textDecoration: "underline" }}>В архив →</Link>
               </div>
               <div className={styles.bentoGrid}>
                 <div className={styles.bentoMain}>
@@ -166,7 +166,7 @@ export default async function StudioDashboard() {
             {/* Recent Activity (Lower Right) */}
             <aside className={styles.sideSection}>
               <div className={styles.feedPanel}>
-                <span className={styles.actionLabel}>Recent Activity</span>
+                <span className={styles.actionLabel}>Активность</span>
                 <div style={{ display: "flex", flexDirection: "column", gap: "24px", marginTop: "16px" }}>
                   {leads.slice(0, 3).map((l: any) => (
                     <div key={l.ID} className={styles.feedItem}>
@@ -177,15 +177,22 @@ export default async function StudioDashboard() {
                       </div>
                     </div>
                   ))}
-                  {tasks.slice(0, 1).map((t: any) => (
-                    <div key={t.id} className={styles.feedItem}>
-                      <div className={`${styles.feedDot} ${styles.muted}`} />
-                      <div>
-                        <p className={styles.feedText}>Задача: {t.title}</p>
-                        <p className={styles.feedTime}>Status: New</p>
+                  {tasks.length > 0 ? (
+                    tasks.slice(0, 1).map((t: any) => (
+                      <div key={t.id} className={styles.feedItem}>
+                        <div className={`${styles.feedDot} ${styles.muted}`} />
+                        <div>
+                          <p className={styles.feedText}>Задача: {t.title}</p>
+                          <p className={styles.feedTime}>Статус: В работе</p>
+                        </div>
                       </div>
+                    ))
+                  ) : (
+                    <div className={styles.feedItem}>
+                      <div className={`${styles.feedDot} ${styles.muted}`} />
+                      <p className={styles.feedTime}>Нет новых событий</p>
                     </div>
-                  ))}
+                  )}
                 </div>
               </div>
             </aside>
@@ -195,9 +202,9 @@ export default async function StudioDashboard() {
           <section className={styles.quoteSection}>
             <div className={styles.quoteWrap}>
               <blockquote className={styles.quoteText}>
-                &ldquo;Design is not just what it looks like and feels like. Design is how it works, and how it persists through time.&rdquo;
+                &ldquo;Дизайн — это не то, как предмет выглядит и ощущается. Дизайн — это то, как он работает и как он сохраняется во времени.&rdquo;
               </blockquote>
-              <cite className={styles.quoteCite}>Studio Philosophy No. 04</cite>
+              <cite className={styles.quoteCite}>Философия Студии №04</cite>
             </div>
           </section>
         </div>
