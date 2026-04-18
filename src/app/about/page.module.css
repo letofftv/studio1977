@@ -1,0 +1,102 @@
+.hero {
+  padding-top: calc(var(--header-h) + var(--space-3xl));
+  padding-bottom: var(--space-2xl);
+  background: var(--gradient-hero);
+}
+
+.title {
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-black);
+  margin-bottom: var(--space-md);
+}
+
+.lead {
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+  color: var(--color-text-secondary);
+  max-width: 640px;
+  line-height: 1.8;
+}
+
+/* Manifesto */
+.manifesto {
+  background: var(--color-bg);
+}
+
+.manifestoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+.manifestoText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  font-size: 1.05rem;
+  color: var(--color-text-secondary);
+  line-height: 1.9;
+}
+
+/* Principles */
+.principles {
+  background: var(--color-bg-elevated);
+}
+
+.principleGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+}
+
+.principleCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.principleCard h3 {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+}
+
+.principleCard p {
+  font-size: var(--fs-sm);
+  color: var(--color-text-secondary);
+}
+
+.principleNum {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: var(--fw-black);
+  color: var(--color-accent);
+  opacity: 0.3;
+}
+
+/* CTA */
+.ctaSection {
+  text-align: center;
+  background: var(--color-bg);
+}
+
+.ctaInner {
+  max-width: 600px;
+}
+
+.ctaTitle {
+  font-size: var(--fs-h2);
+  margin-bottom: var(--space-sm);
+}
+
+.ctaSub {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-lg);
+}
+
+@media (max-width: 768px) {
+  .manifestoGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+}

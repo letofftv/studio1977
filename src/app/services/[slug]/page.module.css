@@ -1,0 +1,70 @@
+.hero {
+  padding-top: calc(var(--header-h) + var(--space-3xl));
+  padding-bottom: var(--space-2xl);
+  background: var(--gradient-hero);
+}
+.heroTop { display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-sm); }
+.icon {
+  font-size: 2.5rem;
+  width: 72px; height: 72px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-md);
+  background: var(--color-accent-glow);
+}
+.title { font-size: var(--fs-h1); font-weight: var(--fw-black); }
+.lead { font-size: 1.15rem; color: var(--color-text-secondary); max-width: 560px; }
+
+.tasks { background: var(--color-bg); }
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2xl); }
+
+.list {
+  margin-top: var(--space-md);
+  display: flex; flex-direction: column; gap: var(--space-sm);
+}
+.list li {
+  padding-left: var(--space-md);
+  position: relative;
+  color: var(--color-text-secondary);
+  font-size: var(--fs-body);
+}
+.list li::before {
+  content: '';
+  position: absolute; left: 0; top: 10px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.stepsSection { background: var(--color-bg-elevated); }
+
+.stepsGrid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md); margin-top: var(--space-xl);
+}
+.step {
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+.stepNum {
+  font-family: var(--font-heading);
+  font-size: 2rem; font-weight: var(--fw-black);
+  color: var(--color-accent); opacity: 0.4;
+  display: block; margin-bottom: var(--space-sm);
+}
+.step p { color: var(--color-text-secondary); font-size: var(--fs-sm); }
+
+.ctaSection { text-align: center; background: var(--color-bg); }
+.ctaInner { max-width: 500px; }
+.ctaInner h2 { font-size: var(--fs-h2); margin-bottom: var(--space-sm); }
+.ctaInner p { color: var(--color-text-secondary); margin-bottom: var(--space-lg); }
+
+@media (max-width: 768px) {
+  .columns { grid-template-columns: 1fr; }
+  .stepsGrid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .stepsGrid { grid-template-columns: 1fr; }
+  .heroTop { flex-direction: column; align-items: flex-start; }
+}
