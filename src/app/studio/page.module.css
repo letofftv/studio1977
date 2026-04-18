@@ -19,8 +19,9 @@
   left: 0;
   top: 0;
   bottom: 0;
-  z-index: 50;
+  z-index: 1000 !important; /* Extremely high to ensure clickability */
   box-shadow: 20px 0px 40px rgba(14, 14, 14, 0.6);
+  pointer-events: all; /* Explicitly allow clicks */
   transition: all var(--dur-base) var(--ease-out);
 }
 
@@ -54,10 +55,10 @@
 }
 
 .sidebarNav a {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
   padding: var(--space-md) var(--space-2xl);
+  display: flex !important; /* Ensure block-like behavior */
+  width: 100%;
+  cursor: pointer !important;
   font-family: var(--font-heading);
   font-size: 0.75rem;
   font-weight: 700;

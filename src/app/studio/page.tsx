@@ -28,11 +28,28 @@ export default async function StudioDashboard() {
   const client = new BitrixClient(session);
 
   // Fetch real data for context
-  const [projects, leads, tasks] = await Promise.all([
+  const [projectsData, leadsData, tasksData] = await Promise.all([
     client.getProjects(),
     client.getLeads(),
     client.getTasks(session.userId),
   ]);
+
+  // Check for expired token
+  if (projectsData.error === "AUTH_EXPIRED") {
+    return (
+      <div className={styles.layout}>
+        <div className={styles.authError}>
+          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800 }}>Сессия истекла</h2>
+          <p style={{ fontFamily: "var(--font-heading)", opacity: 0.6 }}>Ваш токен Битрикс24 больше не действителен. Пожалуйста, перезайдите.</p>
+          <Link href="/api/auth/logout" className="btn btn-primary" style={{ marginTop: "24px" }}>Обновить сессию</Link>
+        </div>
+      </div>
+    );
+  }
+
+  const projects = projectsData || [];
+  const leads = leadsData || [];
+  const tasks = tasksData || [];
 
   const activeProject = projects[0] || { TITLE: "Проект не выбран", STAGE_ID: "Подготовка" };
   const completionPercent = projects[0] ? 64 : 0; 

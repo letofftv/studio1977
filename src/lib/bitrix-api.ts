@@ -68,12 +68,28 @@ export class BitrixClient {
     }
 
     const url = `https://${this.session.domain}/rest/${method}.json?auth=${this.session.accessToken}`;
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(params),
-    });
-    return res.json();
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(params),
+      });
+      
+      const data = await res.json();
+      
+      if (data.error) {
+        console.error(`Bitrix API Error (${method}):`, data.error_description || data.error);
+        if (data.error === "expired_token" || data.error === "invalid_token") {
+          // Token expired, needs re-auth
+          return { error: "AUTH_EXPIRED", details: data.error };
+        }
+      }
+
+      return data;
+    } catch (err) {
+      console.error(`Bitrix Network Error (${method}):`, err);
+      return { error: "NETWORK_ERROR", details: err };
+    }
   }
 
   /**
