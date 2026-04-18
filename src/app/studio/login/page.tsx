@@ -18,9 +18,9 @@ export default function LoginPage() {
             <h1 className={styles.title}>Studio Factory</h1>
             <p className={styles.subtitle}>Войдите под своим корпоративным аккаунтом Битрикс24, чтобы получить доступ к задачам и проектам.</p>
             
-            <button className={`${styles.loginBtn} btn btn-primary`}>
+            <Link href="/api/auth/login" className={`${styles.loginBtn} btn btn-primary`}>
               Войти через Битрикс24
-            </button>
+            </Link>
             
             <div className={styles.hint}>
               Забыли пароль? Восстановите его в своём портале Bitrix24.

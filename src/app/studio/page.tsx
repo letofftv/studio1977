@@ -1,23 +1,40 @@
+import { cookies } from "next/headers";
 import Link from "next/link";
+import { BitrixClient, BitrixSession } from "@/lib/bitrix-api";
 import styles from "./page.module.css";
 
 export const metadata = {
-  title: "Панель студии — Студия 1977",
+  title: "Дашборд — Студия 1977",
   robots: "noindex, nofollow",
 };
 
-const MOCK_PROJECTS = [
-  { id: "1", name: "Ребрендинг «Волна»", client: "Волна", status: "В работе", manager: "Вика", deadline: "15.05.2026" },
-  { id: "2", name: "Event Q3 2026", client: "ТехноПарк", status: "Согласование", manager: "Сергей", deadline: "01.07.2026" },
-  { id: "3", name: "Digital для AURA", client: "AURA", status: "Подготовка", manager: "Влад", deadline: "20.06.2026" },
-];
+export default async function StudioDashboard() {
+  const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get("bitrix_session");
 
-const MOCK_LEADS = [
-  { id: "1", name: "Иван Петров", company: "StartX", type: "Маркетинг", date: "08.04.2026", status: "Новый" },
-  { id: "2", name: "Ольга Козлова", company: "FitHub", type: "Брендинг", date: "07.04.2026", status: "В обработке" },
-];
+  if (!sessionCookie) {
+    // Redirect to login if no session
+    return (
+      <div className={styles.layout}>
+        <div className={styles.authError}>
+          <h2>Требуется авторизация</h2>
+          <p>Войдите в систему, чтобы получить доступ к панели управления.</p>
+          <Link href="/studio/login" className="btn btn-primary">Перейти ко входу</Link>
+        </div>
+      </div>
+    );
+  }
 
-export default function StudioDashboard() {
+  const session: BitrixSession = JSON.parse(sessionCookie.value);
+  const client = new BitrixClient(session);
+
+  // Fetch real data
+  const [projects, leads, tasks] = await Promise.all([
+    client.getProjects(),
+    client.getLeads(),
+    client.getTasks(session.userId),
+  ]);
+
   return (
     <div className={styles.layout}>
       <aside className={styles.sidebar}>
@@ -26,69 +43,80 @@ export default function StudioDashboard() {
           <span className={styles.logoText}>Студия</span>
         </div>
         <nav className={styles.sidebarNav}>
-          <a href="/studio" className={styles.navActive}>Дашборд</a>
-          <a href="/studio/projects">Проекты</a>
-          <a href="/studio/tasks">Задачи</a>
-          <a href="/studio/clients">Клиенты</a>
-          <a href="/studio/leads">Лиды</a>
-          <a href="/studio/team">Команда</a>
-          <a href="/studio/settings">Настройки</a>
+          <Link href="/studio" className={styles.navActive}>Дашборд</Link>
+          <Link href="/studio/projects">Проекты</Link>
+          <Link href="/studio/tasks">Задачи</Link>
+          <Link href="/studio/clients">Клиенты</Link>
+          <Link href="/studio/leads">Лиды</Link>
+          <Link href="/studio/team">Команда</Link>
+          <div className={styles.navSpacer} />
+          <Link href="/api/auth/logout" className={styles.logoutBtn}>Выйти</Link>
         </nav>
         <Link href="/" className={styles.sidebarBack}>← На сайт</Link>
       </aside>
 
       <main className={styles.main}>
         <header className={styles.topBar}>
-          <h1 className={styles.pageTitle}>Панель студии</h1>
+          <div>
+            <p className="section-label">Studio Factory</p>
+            <h1 className={styles.pageTitle}>Дашборд</h1>
+          </div>
           <div className={styles.userBadge}>
-            <span className={styles.avatar}>В</span>
-            <span>Влад</span>
+            <span className={styles.avatar}>ID</span>
+            <div className={styles.userInfo}>
+              <span className={styles.userName}>Пользователь #{session.userId}</span>
+              <span className={styles.userRole}>Команда 1977</span>
+            </div>
           </div>
         </header>
 
         {/* Stats */}
         <div className={styles.statsGrid}>
           <div className={styles.stat}>
-            <span className={styles.statNum}>3</span>
-            <span className={styles.statLabel}>Проектов в работе</span>
+            <span className={styles.statNum}>{projects.length}</span>
+            <span className={styles.statLabel}>Активных проектов</span>
           </div>
           <div className={styles.stat}>
-            <span className={styles.statNum}>2</span>
-            <span className={styles.statLabel}>Новых лида</span>
+            <span className={styles.statNum}>{leads.length}</span>
+            <span className={styles.statLabel}>Свежих лидов</span>
           </div>
           <div className={styles.stat}>
-            <span className={styles.statNum}>5</span>
-            <span className={styles.statLabel}>Задач на сегодня</span>
+            <span className={styles.statNum}>{tasks.length}</span>
+            <span className={styles.statLabel}>Ваших задач</span>
           </div>
           <div className={styles.stat}>
-            <span className={styles.statNum} style={{ color: "var(--color-warning)" }}>1</span>
-            <span className={styles.statLabel}>Просроченных</span>
+            <span className={styles.statNum} style={{ color: "var(--color-primary)" }}>Online</span>
+            <span className={styles.statLabel}>Статус CRM</span>
           </div>
         </div>
 
         {/* Projects */}
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Проекты</h2>
-            <span className={styles.sectionMeta}>{MOCK_PROJECTS.length} активных</span>
+            <h2 className={styles.sectionTitle}>Активные проекты</h2>
+            <Link href="/studio/projects" className={styles.moreLink}>Все проекты →</Link>
           </div>
           <div className={styles.table}>
             <div className={styles.tableHead}>
-              <span>Проект</span>
+              <span>ID</span>
+              <span>Название проекта</span>
               <span>Клиент</span>
-              <span>Статус</span>
-              <span>Менеджер</span>
-              <span>Дедлайн</span>
+              <span>Стадия</span>
+              <span>Дата</span>
             </div>
-            {MOCK_PROJECTS.map((p) => (
-              <div key={p.id} className={styles.tableRow}>
-                <span className={styles.projectName}>{p.name}</span>
-                <span>{p.client}</span>
-                <span className={styles.badge}>{p.status}</span>
-                <span>{p.manager}</span>
-                <span className={styles.muted}>{p.deadline}</span>
-              </div>
-            ))}
+            {projects.length > 0 ? (
+              projects.map((p: any) => (
+                <div key={p.ID} className={styles.tableRow}>
+                  <span className={styles.muted}>#{p.ID}</span>
+                  <span className={styles.projectName}>{p.TITLE}</span>
+                  <span>{p.COMPANY_TITLE || "—"}</span>
+                  <span className={styles.badge}>{p.STAGE_ID}</span>
+                  <span className={styles.muted}>{new Date(p.DATE_CREATE).toLocaleDateString()}</span>
+                </div>
+              ))
+            ) : (
+              <div className={styles.empty}>Нет активных проектов</div>
+            )}
           </div>
         </section>
 
@@ -96,25 +124,32 @@ export default function StudioDashboard() {
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>Последние лиды</h2>
-            <span className={styles.sectionMeta}>{MOCK_LEADS.length} новых</span>
+            <Link href="/studio/leads" className={styles.moreLink}>Все лиды →</Link>
           </div>
           <div className={styles.table}>
             <div className={styles.tableHead}>
-              <span>Имя</span>
-              <span>Компания</span>
-              <span>Направление</span>
-              <span>Дата</span>
+              <span>ID</span>
+              <span>Лид / Компания</span>
               <span>Статус</span>
+              <span>Источник</span>
+              <span>Дата</span>
             </div>
-            {MOCK_LEADS.map((l) => (
-              <div key={l.id} className={styles.tableRow}>
-                <span className={styles.projectName}>{l.name}</span>
-                <span>{l.company}</span>
-                <span>{l.type}</span>
-                <span className={styles.muted}>{l.date}</span>
-                <span className={styles.badge}>{l.status}</span>
-              </div>
-            ))}
+            {leads.length > 0 ? (
+              leads.map((l: any) => (
+                <div key={l.ID} className={styles.tableRow}>
+                  <span className={styles.muted}>#{l.ID}</span>
+                  <div>
+                    <div className={styles.projectName}>{l.TITLE}</div>
+                    <div className={styles.muted} style={{ fontSize: "0.75rem" }}>{l.NAME} {l.LAST_NAME}</div>
+                  </div>
+                  <span className={styles.badge}>{l.STATUS_ID}</span>
+                  <span className={styles.muted}>CRM</span>
+                  <span className={styles.muted}>{new Date(l.DATE_CREATE).toLocaleDateString()}</span>
+                </div>
+              ))
+            ) : (
+              <div className={styles.empty}>Нет новых лидов</div>
+            )}
           </div>
         </section>
       </main>
