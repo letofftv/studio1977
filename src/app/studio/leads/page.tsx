@@ -30,14 +30,6 @@ export default async function LeadsPage() {
     if (leadsData.error === "AUTH_EXPIRED") {
       errorState = "AUTH_EXPIRED";
     }
-    // Persist refreshed token
-    const updatedSession = client.getSession();
-    if (updatedSession && updatedSession.accessToken !== session.accessToken) {
-      const cookieStore2 = await cookies();
-      cookieStore2.set("bitrix_session", JSON.stringify(updatedSession), {
-        httpOnly: true, secure: process.env.NODE_ENV === "production", path: "/", maxAge: 3600 * 24 * 7,
-      });
-    }
   }
 
   const leads = Array.isArray(leadsData) ? leadsData : [];

@@ -113,7 +113,7 @@ export class BitrixClient {
       }
     }
 
-    const url = `https://${this.session.domain}/rest/${method}.json?auth=${this.session.accessToken}`;
+    const url = `https://${PORTAL}/rest/${method}.json?auth=${this.session.accessToken}`;
     try {
       const res = await fetch(url, {
         method: "POST",

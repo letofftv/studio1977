@@ -43,17 +43,6 @@ export default async function StudioDashboard() {
       errorState = "AUTH_EXPIRED";
     }
 
-    // Persist refreshed token back to cookie if it was updated
-    const updatedSession = client.getSession();
-    if (updatedSession && updatedSession.accessToken !== session.accessToken) {
-      const cookieStore = await cookies();
-      cookieStore.set("bitrix_session", JSON.stringify(updatedSession), {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        path: "/",
-        maxAge: 3600 * 24 * 7,
-      });
-    }
   }
 
   const projects = Array.isArray(projectsData) ? projectsData : [];
