@@ -4,7 +4,7 @@ import styles from "../page.module.css";
 import StudioPageLayout from "../components/StudioPageLayout";
 
 export const metadata = {
-  title: "Лиды — Студия 1977",
+  title: "Входящие лиды — Студия 1977",
   robots: "noindex, nofollow",
 };
 
@@ -35,10 +35,13 @@ export default async function LeadsPage() {
   const leads = Array.isArray(leadsData) ? leadsData : [];
 
   return (
-    <StudioPageLayout session={session} error={errorState} title="Лиды">
+    <StudioPageLayout session={session} error={errorState} title="Входящие лиды">
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>Входящие лиды</h2>
+          <div>
+            <h2 className={styles.sectionTitle}>Обращения в CRM</h2>
+            <p className={styles.sectionSub}>Новые обращения, которые ещё не стали сделками. Нуждаются в квалификации и первом контакте.</p>
+          </div>
           <span className={styles.sectionMeta}>{leads.length} записей</span>
         </div>
         <div className={styles.table}>
@@ -60,7 +63,7 @@ export default async function LeadsPage() {
               </div>
             ))
           ) : (
-            <div className={styles.empty}>Нет лидов</div>
+            <div className={styles.empty}>Новых лидов нет. Тишина — это иногда полезно.</div>
           )}
         </div>
       </section>

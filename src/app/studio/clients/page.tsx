@@ -4,7 +4,7 @@ import styles from "../page.module.css";
 import StudioPageLayout from "../components/StudioPageLayout";
 
 export const metadata = {
-  title: "Клиенты — Студия 1977",
+  title: "База клиентов — Студия 1977",
   robots: "noindex, nofollow",
 };
 
@@ -35,10 +35,13 @@ export default async function ClientsPage() {
   const companies = Array.isArray(companiesData) ? companiesData : [];
 
   return (
-    <StudioPageLayout session={session} error={errorState} title="Клиенты">
+    <StudioPageLayout session={session} error={errorState} title="База клиентов">
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>База контрагентов</h2>
+          <div>
+            <h2 className={styles.sectionTitle}>Компании и контрагенты</h2>
+            <p className={styles.sectionSub}>Список компаний, сохранённых в CRM. Здесь хранится история ваших отношений с бизнесом.</p>
+          </div>
           <span className={styles.sectionMeta}>{companies.length} компаний</span>
         </div>
         <div className={styles.table}>
@@ -58,7 +61,7 @@ export default async function ClientsPage() {
               </div>
             ))
           ) : (
-            <div className={styles.empty}>Список компаний пуст</div>
+            <div className={styles.empty}>Список клиентов пуст. Пора добавить первую компанию в CRM.</div>
           )}
         </div>
       </section>

@@ -1,27 +1,22 @@
-"use client";
-import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import styles from "./page.module.css";
 
+export const metadata = {
+  title: "Контакты Студии 1977",
+  description: "Свяжитесь со Студией 1977, чтобы обсудить маркетинг, сайт, CRM, автоматизацию, брендинг, событие или перезапуск проекта.",
+};
+
 export default function ContactPage() {
-  const [sent, setSent] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSent(true);
-  };
-
   return (
     <>
       <Header />
       <main>
         <section className={styles.hero}>
           <div className="container">
-            <p className="section-label">Контакты</p>
-            <h1 className={styles.title}>Давайте поговорим</h1>
+            <h1 className={styles.title}>Давайте обсудим, что нужно вашему проекту</h1>
             <p className={styles.lead}>
-              Напишите нам, позвоните или заполните форму — мы ответим в течение рабочего дня.
+              Можно прийти с готовым ТЗ, а можно с коротким сообщением в духе «у нас всё есть, но ничего не работает как надо».
             </p>
           </div>
         </section>
@@ -29,67 +24,48 @@ export default function ContactPage() {
         <section className={`section ${styles.content}`}>
           <div className="container">
             <div className={styles.grid}>
-              {/* Info */}
               <div className={styles.info}>
-                <div className={styles.infoBlock}>
-                  <h3 className={styles.infoTitle}>Email</h3>
-                  <a href="mailto:hello@studio1977.ru" className={styles.infoValue}>hello@studio1977.ru</a>
+                <div className={styles.block}>
+                  <h3>Написать</h3>
+                  <a href="mailto:hello@studio1977.ru" className={styles.contactValue}>hello@studio1977.ru</a>
+                  <p className={styles.subtext}>Подходит для запросов, брифов, материалов и документов.</p>
                 </div>
-                <div className={styles.infoBlock}>
-                  <h3 className={styles.infoTitle}>Телефон</h3>
-                  <a href="tel:+79001234567" className={styles.infoValue}>+7 900 123-45-67</a>
+
+                <div className={styles.block}>
+                  <h3>Позвонить</h3>
+                  <a href="tel:+79001234567" className={styles.contactValue}>+7 900 123-45-67</a>
+                  <p className={styles.subtext}>Если нужно быстро понять, можем ли быть полезны.</p>
                 </div>
-                <div className={styles.infoBlock}>
-                  <h3 className={styles.infoTitle}>Адрес</h3>
-                  <p className={styles.infoValue}>Республика Крым</p>
+
+                <div className={styles.block}>
+                  <h3>Где работаем</h3>
+                  <p className={styles.contactValue}>Республика Крым</p>
+                  <p className={styles.subtext}>Работаем с крымскими проектами и задачами за пределами региона удалённо.</p>
                 </div>
-                <div className={styles.infoBlock}>
-                  <h3 className={styles.infoTitle}>Мессенджеры</h3>
-                  <div className={styles.socials}>
-                    <a href="#" className={styles.socialLink}>Telegram</a>
-                    <a href="#" className={styles.socialLink}>WhatsApp</a>
+
+                <div className={styles.messengers}>
+                  <div className={styles.messengerButtons}>
+                    <a href="https://t.me/letoff_tv" className="btn btn-outline">Написать в Telegram</a>
+                    <a href="#" className="btn btn-outline">Написать в WhatsApp</a>
                   </div>
+                  <p className={styles.subtext} style={{ marginTop: "16px" }}>
+                    Для первого контакта достаточно пары предложений о задаче.
+                  </p>
                 </div>
               </div>
 
-              {/* Form */}
-              <div className={styles.formWrap}>
-                {sent ? (
-                  <div className={styles.success}>
-                    <span className={styles.successIcon}>✓</span>
-                    <h3>Заявка отправлена</h3>
-                    <p>Мы свяжемся с вами в ближайшее время.</p>
-                  </div>
-                ) : (
-                  <form className={styles.form} onSubmit={handleSubmit}>
-                    <h2 className={styles.formTitle}>Быстрая заявка</h2>
-                    <div className={styles.fieldRow}>
-                      <div className={styles.field}>
-                        <label htmlFor="contact-name">Имя</label>
-                        <input id="contact-name" type="text" placeholder="Как к вам обращаться?" required />
-                      </div>
-                      <div className={styles.field}>
-                        <label htmlFor="contact-company">Компания</label>
-                        <input id="contact-company" type="text" placeholder="Название компании" />
-                      </div>
-                    </div>
-                    <div className={styles.fieldRow}>
-                      <div className={styles.field}>
-                        <label htmlFor="contact-email">Email</label>
-                        <input id="contact-email" type="email" placeholder="email@example.com" required />
-                      </div>
-                      <div className={styles.field}>
-                        <label htmlFor="contact-phone">Телефон</label>
-                        <input id="contact-phone" type="tel" placeholder="+7 ..." />
-                      </div>
-                    </div>
-                    <div className={styles.field}>
-                      <label htmlFor="contact-message">Сообщение</label>
-                      <textarea id="contact-message" rows={5} placeholder="Расскажите коротко о задаче" required />
-                    </div>
-                    <button type="submit" className="btn btn-primary">Отправить заявку</button>
-                  </form>
-                )}
+              <div className={styles.helpBox}>
+                <h3>Что лучше написать сразу</h3>
+                <ul className={styles.helpList}>
+                  <li>чем занимается ваш бизнес или проект</li>
+                  <li>что сейчас не устраивает</li>
+                  <li>какой результат хотите получить</li>
+                  <li>есть ли сроки</li>
+                  <li>есть ли сайт, соцсети или CRM</li>
+                </ul>
+                <p className={styles.helpFoot}>
+                  Не страшно, если пока нет точной формулировки. Задача часто становится понятной только после первого разговора.
+                </p>
               </div>
             </div>
           </div>

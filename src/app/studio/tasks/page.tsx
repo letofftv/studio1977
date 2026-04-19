@@ -4,7 +4,7 @@ import styles from "../page.module.css";
 import StudioPageLayout from "../components/StudioPageLayout";
 
 export const metadata = {
-  title: "Задачи — Студия 1977",
+  title: "Мои задачи — Студия 1977",
   robots: "noindex, nofollow",
 };
 
@@ -35,10 +35,13 @@ export default async function TasksPage() {
   const tasks = Array.isArray(tasksData) ? tasksData : [];
 
   return (
-    <StudioPageLayout session={session} error={errorState} title="Задачи">
+    <StudioPageLayout session={session} error={errorState} title="Мои задачи">
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>Мои задачи</h2>
+          <div>
+            <h2 className={styles.sectionTitle}>Задачи из Битрикс24</h2>
+            <p className={styles.sectionSub}>Задачи, в которых вы являетесь постановщиком или исполнителем. Помогают держать фокус на текущих делах.</p>
+          </div>
           <span className={styles.sectionMeta}>{tasks.length} активных</span>
         </div>
         <div className={styles.table}>
@@ -62,7 +65,7 @@ export default async function TasksPage() {
               </div>
             ))
           ) : (
-            <div className={styles.empty}>Нет активных задач</div>
+            <div className={styles.empty}>Активных задач нет. Хороший повод заняться чем-то творческим.</div>
           )}
         </div>
       </section>

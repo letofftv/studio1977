@@ -4,6 +4,11 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Студия 1977: маркетинг, сайты, CRM, события и автоматизация для бизнеса",
+  description: "Студия 1977 помогает бизнесу в Крыму и за его пределами с маркетингом, брендингом, сайтами, CRM, ИИ-ботами, событиями и антикризисной упаковкой.",
+};
+
 const IconAudit = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
@@ -44,74 +49,72 @@ const SERVICES = [
   {
     id: "audit",
     title: "Маркетинговый аудит",
-    desc: "Комплексная диагностика бизнеса: рынок, конкуренты, digital, репутация и точки роста.",
+    desc: "Находим, где бизнес теряет внимание, доверие и заявки. Даём понятную карту роста.",
     icon: <IconAudit />,
   },
   {
     id: "branding",
     title: "Брендинг и упаковка",
-    desc: "Позиционирование, ребрендинг, смыслы и подача бренда для роста доверия.",
+    desc: "Делаем бренд понятным, живым и пригодным для продаж. Смыслы, позиционирование и визуал.",
     icon: <IconBranding />,
   },
   {
     id: "digital",
     title: "Сайты и digital",
-    desc: "Лендинги, корпоративные сайты, web-app, личные кабинеты и интеграции.",
+    desc: "Сайт как инструмент продаж: логика, дизайн и техническая реализация.",
     icon: <IconDigital />,
   },
   {
     id: "crm",
     title: "CRM и автоматизация",
-    desc: "Внедрение Битрикс24, настройка воронок, автоматизация задач и продаж.",
+    desc: "Наводим порядок в продажах, задачах и коммуникации. Внедрение Битрикс24.",
     icon: <IconCRM />,
   },
   {
     id: "ai",
-    title: "AI и боты",
-    desc: "Telegram-боты, AI-ассистенты, автоматизация коммуникаций и интеграция ИИ.",
+    title: "ИИ, боты и помощники",
+    desc: "Автоматизируем рутину там, где люди тратят время впустую. Умные ассистенты.",
     icon: <IconAI />,
   },
   {
     id: "strategy",
     title: "Стратегия и антикризис",
-    desc: "Маркетинговые стратегии, антикризисные планы и воронки привлечения.",
+    desc: "Когда нужен не шум, а трезвый план выхода из просадки. Перепаковка и фокус.",
     icon: <IconStrategy />,
   },
 ];
 
-const CASES = [
-  {
-    slug: "atlas-festival",
-    title: "Atlas Festival 2024",
-    category: "Event · Production",
-    image: null,
-  },
-  {
-    slug: "nova-brand",
-    title: "Nova — запуск бренда",
-    category: "Брендинг · Маркетинг",
-    image: null,
-  },
-  {
-    slug: "echo-digital",
-    title: "Echo Digital Platform",
-    category: "Digital · Стратегия",
-    image: null,
-  },
-];
-
-const TEAM = [
-  { name: "Влад", role: "Фаундер & Креативный директор", photo: "/images/team/vlad.png" },
-  { name: "Сергей", role: "Стратегия & Продюсирование", photo: "/images/team/sergey.png" },
-  { name: "Таня", role: "Арт-дирекшн & Дизайн", photo: "/images/team/tanya.png" },
-  { name: "Вика", role: "Управление проектами", photo: "/images/team/vika.png" },
+const AUDIENCES = [
+  { title: "Локальный бизнес", desc: "Заведения, услуги, магазины, салоны. Становимся заметнее и сильнее на своём рынке." },
+  { title: "Девелопмент", desc: "Сайты ЖК, каталоги, интеграции с CRM и упаковка предложений для покупателей." },
+  { title: "Event и культура", desc: "Концепции, партнёрские предложения, айдентика и страницы регистрации." },
+  { title: "Производство и B2B", desc: "Упаковка сложных услуг, коммерческие предложения и автоматизация продаж." },
+  { title: "Проекты Reboot", desc: "Когда бренд устал, а маркетингу нужна новая точка сборки и понятные смыслы." },
 ];
 
 const PROCESS_STEPS = [
-  { num: "01", title: "Знакомство", desc: "Обсуждаем задачу, изучаем контекст, формируем понимание." },
-  { num: "02", title: "Стратегия", desc: "Разрабатываем подход, собираем бриф, определяем формат." },
-  { num: "03", title: "Реализация", desc: "Работаем в прозрачном процессе с контролем этапов." },
-  { num: "04", title: "Результат", desc: "Сдаём проект и обеспечиваем сопровождение." },
+  { num: "01", title: "Знакомство", desc: "Слушаем задачу, задаём неудобные вопросы. Понимаем, что происходит сейчас." },
+  { num: "02", title: "Разбор", desc: "Изучаем рынок, конкурентов и процессы. Получаем реальную картину, а не ощущение." },
+  { num: "03", title: "Сборка решения", desc: "Предлагаем формат работы и фиксируем этапы, сроки и зоны ответственности." },
+  { num: "04", title: "Реализация", desc: "Делаем проект в понятном процессе. Объясняем логику, не прячемся за словами." },
+  { num: "05", title: "Запуск", desc: "Помогаем внедрить, обучаем команду и остаёмся рядом для поддержки." },
+];
+
+const EXPERIENCE = [
+  { title: "Исследования рынков", desc: "Изучаем присутствие бренда, конкурентов и точки входа." },
+  { title: "Коммерческие предложения", desc: "Пишем КП, которые показывают выгоду и закрывают вопросы." },
+  { title: "Сайты с CRM-логикой", desc: "Где заявка попадает в понятный процесс, а не просто на почту." },
+  { title: "Bitrix24 под ключ", desc: "Настраиваем воронки и роботов под конкретную команду." },
+  { title: "ИИ-продукты и боты", desc: "Разрабатываем ассистентов для рутины и поддержки сотрудников." },
+  { title: "Медиа и события", desc: "Работаем с подачей, вниманием и атмосферой проекта." },
+];
+
+const TEAM = [
+  { name: "Сергей", role: "Стратегия, тексты, ИИ и упаковка решений", bio: "Помогает разложить сложную задачу на понятную систему: что говорим и кому." },
+  { name: "Влад", role: "Идеология и направление проекта", bio: "Держит смысловую рамку 1977, собирает вокруг проекта атмосферу и стиль." },
+  { name: "Вика", role: "Маркетинг, контент и координация", bio: "Переводит идеи в действия: коммуникации, материалы и работа с партнёрами." },
+  { name: "Таня", role: "Арт-дирекшн и продакшн", bio: "Смотрит на проект через качество исполнения и визуальную систему." },
+  { name: "Лаура", role: "Event-направление и организация", bio: "Усиливает проекты, где важны живое впечатление и сценарий события." },
 ];
 
 export default function HomePage() {
@@ -127,39 +130,36 @@ export default function HomePage() {
             <div className={styles.heroGrid} />
           </div>
           <div className={`container ${styles.heroInner}`}>
-            <p className={styles.heroLabel}>Креативное агентство полного цикла</p>
+            <p className={styles.heroLabel}>Студия 1977</p>
             <h1 className={styles.heroTitle}>
-              Создаём проекты,
-              <br />
-              которые <span className="text-accent">запоминаются</span>
+              Помогаем бизнесу выглядеть сильнее, работать понятнее и продавать увереннее
             </h1>
             <p className={styles.heroSub}>
-              Маркетинг · Event · Брендинг · Production · Digital
+              Мы соединяем маркетинг, события, брендинг, сайты, CRM и ИИ-инструменты в одну рабочую систему.
             </p>
             <div className={styles.heroCta}>
-              <Link href="/brief" className="btn btn-primary">
-                Обсудить проект
-              </Link>
-              <Link href="/cases" className="btn btn-outline">
-                Смотреть кейсы
-              </Link>
+              <Link href="/brief" className="btn btn-primary">Обсудить проект</Link>
+              <Link href="#services" className="btn btn-outline">Смотреть направления</Link>
             </div>
+            <p className={styles.heroFoot}>
+              Работаем с бизнесом, локальными брендами, производством и проектами, которым пора навести порядок в продвижении.
+            </p>
           </div>
         </section>
 
         {/* ====== SERVICES ====== */}
         <section className={`section ${styles.services}`} id="services">
           <div className="container">
-            <p className="section-label">Направления</p>
-            <h2 className="section-title">Чем мы занимаемся</h2>
+            <p className="section-label">Комплексный подход</p>
+            <h2 className="section-title">Собираем не отдельные куски, а внятную систему</h2>
             <p className="section-subtitle">
-              Полный спектр креативных и стратегических услуг для бизнеса, брендов и продуктов.
+              Бизнесу редко нужен просто сайт или логотип. Обычно проблема в отсутствии упаковки или хаосе в заявках. Мы заходим именно туда.
             </p>
             <div className={`${styles.serviceGrid} stagger`}>
               {SERVICES.map((s) => (
-                <Link
-                  key={s.id}
-                  href={`/services/${s.id}`}
+                <Link 
+                  key={s.id} 
+                  href={s.id === "ai" || s.id === "like-it" ? "/partners/like-it" : `/services/${s.id}`} 
                   className={`card ${styles.serviceCard} animate-fade-up`}
                 >
                   <span className={styles.serviceIcon}>{s.icon}</span>
@@ -172,35 +172,17 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ====== CASES ====== */}
-        <section className={`section ${styles.cases}`} id="cases">
+        {/* ====== AUDIENCES ====== */}
+        <section className={`section ${styles.audiences}`}>
           <div className="container">
-            <div className={styles.casesHeader}>
-              <div>
-                <p className="section-label">Портфолио</p>
-                <h2 className="section-title">Избранные кейсы</h2>
-              </div>
-              <Link href="/cases" className="btn btn-outline">
-                Все проекты
-              </Link>
-            </div>
-            <div className={styles.casesGrid}>
-              {CASES.map((c) => (
-                <Link
-                  key={c.slug}
-                  href={`/cases/${c.slug}`}
-                  className={styles.caseCard}
-                >
-                  <div className={styles.caseImage}>
-                    <div className={styles.casePlaceholder}>
-                      <span>{c.title.charAt(0)}</span>
-                    </div>
-                  </div>
-                  <div className={styles.caseMeta}>
-                    <span className={styles.caseCategory}>{c.category}</span>
-                    <h3 className={styles.caseTitle}>{c.title}</h3>
-                  </div>
-                </Link>
+            <p className="section-label">Для кого мы полезны</p>
+            <h2 className="section-title">К нам приходят, когда пора собрать всё в систему</h2>
+            <div className={styles.audiencesGrid}>
+              {AUDIENCES.map((a) => (
+                <div key={a.title} className={styles.audienceCard}>
+                  <h3>{a.title}</h3>
+                  <p>{a.desc}</p>
+                </div>
               ))}
             </div>
           </div>
@@ -210,9 +192,9 @@ export default function HomePage() {
         <section className={`section ${styles.process}`} id="process">
           <div className="container">
             <p className="section-label">Подход</p>
-            <h2 className="section-title">Как мы работаем</h2>
+            <h2 className="section-title">Сначала разбираемся, потом делаем</h2>
             <p className="section-subtitle">
-              Прозрачный и управляемый процесс, выстроенный вокруг вашего результата.
+              Хороший результат появляется, когда понятно, что именно болит и каким должен быть следующий шаг.
             </p>
             <div className={styles.processGrid}>
               {PROCESS_STEPS.map((s) => (
@@ -226,25 +208,33 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* ====== EXPERIENCE ====== */}
+        <section className={`section ${styles.experience} bg-surface-low`}>
+          <div className="container">
+            <p className="section-label">Практика</p>
+            <h2 className="section-title">Наш опыт не из презентаций</h2>
+            <div className={styles.experienceGrid}>
+              {EXPERIENCE.map((e) => (
+                <div key={e.title} className={styles.expCard}>
+                  <h3>{e.title}</h3>
+                  <p>{e.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ====== TEAM ====== */}
         <section className={`section ${styles.team}`} id="team">
           <div className="container">
             <p className="section-label">Команда</p>
-            <h2 className="section-title">Лица проекта</h2>
+            <h2 className="section-title">Смотрим на задачи с разных сторон</h2>
             <div className={styles.teamGrid}>
               {TEAM.map((t) => (
                 <div key={t.name} className={styles.teamCard}>
-                  <div className={styles.teamPhoto}>
-                    <Image
-                      src={t.photo}
-                      alt={t.name}
-                      width={400}
-                      height={400}
-                      className={styles.teamImg}
-                    />
-                  </div>
                   <h3 className={styles.teamName}>{t.name}</h3>
                   <p className={styles.teamRole}>{t.role}</p>
+                  <p className={styles.teamBio}>{t.bio}</p>
                 </div>
               ))}
             </div>
@@ -258,20 +248,14 @@ export default function HomePage() {
           </div>
           <div className={`container ${styles.ctaInner}`}>
             <h2 className={styles.ctaTitle}>
-              Готовы обсудить
-              <br />
-              ваш проект?
+              Есть задача, но пока нет понятной формы?
             </h2>
             <p className={styles.ctaSub}>
-              Расскажите нам о задаче — мы предложим решение и формат сотрудничества.
+              Это нормальная точка входа. Мы поможем разложить ситуацию на конкретные шаги без лишнего разгона бюджета.
             </p>
             <div className={styles.ctaActions}>
-              <Link href="/brief" className="btn btn-primary">
-                Заполнить бриф
-              </Link>
-              <Link href="/contact" className="btn btn-outline">
-                Связаться с нами
-              </Link>
+              <Link href="/brief" className="btn btn-primary">Обсудить проект</Link>
+              <Link href="/contact" className="btn btn-outline">Связаться с нами</Link>
             </div>
           </div>
         </section>
