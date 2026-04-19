@@ -41,7 +41,7 @@ export default function ContactPage() {
                 </div>
                 <div className={styles.infoBlock}>
                   <h3 className={styles.infoTitle}>Адрес</h3>
-                  <p className={styles.infoValue}>Москва, Россия</p>
+                  <p className={styles.infoValue}>Республика Крым</p>
                 </div>
                 <div className={styles.infoBlock}>
                   <h3 className={styles.infoTitle}>Мессенджеры</h3>

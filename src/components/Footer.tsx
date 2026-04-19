@@ -40,7 +40,7 @@ export default function Footer() {
               <h4 className={styles.colTitle}>Контакты</h4>
               <a href="mailto:hello@studio1977.ru">hello@studio1977.ru</a>
               <a href="tel:+79001234567">+7 900 123-45-67</a>
-              <span>Москва, Россия</span>
+              <span>Республика Крым</span>
             </div>
           </div>
         </div>
