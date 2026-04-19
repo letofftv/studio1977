@@ -4,7 +4,8 @@ import { BitrixClient, BitrixSession } from "@/lib/bitrix-api";
 import styles from "../page.module.css";
 
 export const metadata = {
-  title: "Мои задачи — Студия 1977",
+  title: "Задачи — Студия 1977",
+  robots: "noindex, nofollow",
 };
 
 export default async function TasksPage() {
@@ -14,14 +15,15 @@ export default async function TasksPage() {
 
   const session: BitrixSession = JSON.parse(sessionCookie.value);
   const client = new BitrixClient(session);
-  const tasks = await client.getTasks(session.userId);
+  const tasksData = await client.getTasks(session.userId);
+  const tasks = Array.isArray(tasksData) ? tasksData : [];
 
   return (
     <div className={styles.layout}>
       <aside className={styles.sidebar}>
         <div className={styles.sidebarLogo}>
-          <span className={styles.logoMark}>Portal</span>
-          <span className={styles.logoText}>Studio 1977</span>
+          <span className={styles.logoMark}>1977</span>
+          <span className={styles.logoText}>Студия</span>
         </div>
         <nav className={styles.sidebarNav}>
           <Link href="/studio">Дашборд</Link>
@@ -31,51 +33,48 @@ export default async function TasksPage() {
           <Link href="/studio/leads">Лиды</Link>
           <Link href="/studio/team">Команда</Link>
         </nav>
-        <div className={styles.userProfile}>
-          <div className={styles.avatar}>ID</div>
-          <div className={styles.userInfo}>
-            <div className={styles.userName}>Сотрудник #{session.userId}</div>
-            <div className={styles.userRole}>Команда 1977</div>
-          </div>
-        </div>
+        <Link href="/" className={styles.sidebarBack}>← На сайт</Link>
       </aside>
 
       <main className={styles.main}>
-        <header className={styles.header}>
-          <div className={styles.headerInfo}>
-            <h1>Ваши задачи</h1>
-            <p>Рабочий поток / Контроль</p>
+        <header className={styles.topBar}>
+          <h1 className={styles.pageTitle}>Задачи</h1>
+          <div className={styles.userBadge}>
+            <span className={styles.avatar}>{session.userId.charAt(0).toUpperCase()}</span>
+            <span>Сотрудник #{session.userId}</span>
           </div>
         </header>
 
-        <div className={styles.dashContent}>
-          <section className={styles.section}>
-            <div className={styles.table}>
-              <div className={styles.tableHead}>
-                <span>ID</span>
-                <span>Описание задачи</span>
-                <span>Крайний срок</span>
-                <span>Статус</span>
-              </div>
-              {tasks.length > 0 ? (
-                tasks.map((t: any) => (
-                  <div key={t.id} className={styles.tableRow}>
-                    <span className={styles.muted}>#{t.id}</span>
-                    <span className={styles.projectName}>{t.title}</span>
-                    <span className={t.deadline ? "" : styles.muted}>
-                      {t.deadline ? new Date(t.deadline).toLocaleDateString() : "Не задан"}
-                    </span>
-                    <span className={styles.badge}>
-                      {t.status === "5" ? "Завершена" : "Активна"}
-                    </span>
-                  </div>
-                ))
-              ) : (
-                <div className={styles.empty}>Новых задач не найдено.</div>
-              )}
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>Мои задачи</h2>
+            <span className={styles.sectionMeta}>{tasks.length} активных</span>
+          </div>
+          <div className={styles.table}>
+            <div className={styles.tableHead}>
+              <span>ID</span>
+              <span>Описание</span>
+              <span>Крайний срок</span>
+              <span>Статус</span>
             </div>
-          </section>
-        </div>
+            {tasks.length > 0 ? (
+              tasks.map((t: any) => (
+                <div key={t.id} className={styles.tableRow}>
+                  <span className={styles.muted}>#{t.id}</span>
+                  <span className={styles.projectName}>{t.title}</span>
+                  <span className={t.deadline ? "" : styles.muted}>
+                    {t.deadline ? new Date(t.deadline).toLocaleDateString() : "Не задан"}
+                  </span>
+                  <span className={styles.badge}>
+                    {t.status === "5" ? "Завершена" : "Активна"}
+                  </span>
+                </div>
+              ))
+            ) : (
+              <div className={styles.empty}>Нет активных задач</div>
+            )}
+          </div>
+        </section>
       </main>
     </div>
   );

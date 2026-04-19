@@ -5,6 +5,7 @@ import styles from "../page.module.css";
 
 export const metadata = {
   title: "Проекты — Студия 1977",
+  robots: "noindex, nofollow",
 };
 
 export default async function ProjectsPage() {
@@ -14,14 +15,15 @@ export default async function ProjectsPage() {
 
   const session: BitrixSession = JSON.parse(sessionCookie.value);
   const client = new BitrixClient(session);
-  const projects = await client.getProjects();
+  const projectsData = await client.getProjects();
+  const projects = Array.isArray(projectsData) ? projectsData : [];
 
   return (
     <div className={styles.layout}>
       <aside className={styles.sidebar}>
         <div className={styles.sidebarLogo}>
-          <span className={styles.logoMark}>Portal</span>
-          <span className={styles.logoText}>Studio 1977</span>
+          <span className={styles.logoMark}>1977</span>
+          <span className={styles.logoText}>Студия</span>
         </div>
         <nav className={styles.sidebarNav}>
           <Link href="/studio">Дашборд</Link>
@@ -31,47 +33,46 @@ export default async function ProjectsPage() {
           <Link href="/studio/leads">Лиды</Link>
           <Link href="/studio/team">Команда</Link>
         </nav>
-        <div className={styles.userProfile}>
-          <div className={styles.avatar}>ID</div>
-          <div className={styles.userInfo}>
-            <div className={styles.userName}>Сотрудник #{session.userId}</div>
-            <div className={styles.userRole}>Команда 1977</div>
-          </div>
-        </div>
+        <Link href="/" className={styles.sidebarBack}>← На сайт</Link>
       </aside>
 
       <main className={styles.main}>
-        <header className={styles.header}>
-          <div className={styles.headerInfo}>
-            <h1>Проекты</h1>
-            <p>Активные сделки / Обзор</p>
+        <header className={styles.topBar}>
+          <h1 className={styles.pageTitle}>Проекты</h1>
+          <div className={styles.userBadge}>
+            <span className={styles.avatar}>{session.userId.charAt(0).toUpperCase()}</span>
+            <span>Сотрудник #{session.userId}</span>
           </div>
         </header>
 
-        <div className={styles.dashContent}>
-          <section className={styles.section}>
-            <div className={styles.table}>
-              <div className={styles.tableHead}>
-                <span>ID</span>
-                <span>Название проекта</span>
-                <span>Компания</span>
-                <span>Стадия сделки</span>
-              </div>
-              {projects.length > 0 ? (
-                projects.map((p: any) => (
-                  <div key={p.ID} className={styles.tableRow}>
-                    <span className={styles.muted}>#{p.ID}</span>
-                    <span className={styles.projectName}>{p.TITLE}</span>
-                    <span>{p.COMPANY_TITLE || "—"}</span>
-                    <span className={styles.badge}>{p.STAGE_ID}</span>
-                  </div>
-                ))
-              ) : (
-                <div className={styles.empty}>Активных проектов не найдено.</div>
-              )}
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>Активные проекты</h2>
+            <span className={styles.sectionMeta}>{projects.length} проектов</span>
+          </div>
+          <div className={styles.table}>
+            <div className={styles.tableHead}>
+              <span>Проект</span>
+              <span>Клиент</span>
+              <span>Статус</span>
+              <span>Ответственный</span>
+              <span>Дата создания</span>
             </div>
-          </section>
-        </div>
+            {projects.length > 0 ? (
+              projects.map((p: any) => (
+                <div key={p.ID} className={styles.tableRow}>
+                  <span className={styles.projectName}>{p.TITLE}</span>
+                  <span>{p.COMPANY_TITLE || "—"}</span>
+                  <span className={styles.badge}>{p.STAGE_ID}</span>
+                  <span>ID: {p.ASSIGNED_BY_ID}</span>
+                  <span className={styles.muted}>{new Date(p.DATE_CREATE).toLocaleDateString()}</span>
+                </div>
+              ))
+            ) : (
+              <div className={styles.empty}>Нет активных проектов</div>
+            )}
+          </div>
+        </section>
       </main>
     </div>
   );

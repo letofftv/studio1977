@@ -4,20 +4,14 @@ import styles from "./page.module.css";
 
 export const metadata = {
   title: "О студии — Студия 1977",
-  description: "Мы не создаём шум. Мы курируем присутствие.",
+  description: "Философия, история и принципы работы креативного агентства Студия 1977.",
 };
 
-const PROCESS = [
-  { num: "01", title: "Глубокое погружение", desc: "Извлекаем суть бренда, убирая поверхностные желания и находя монолитную правду." },
-  { num: "02", title: "Тональное картирование", desc: "Определяем палитру атмосферы, материала и веса." },
-  { num: "03", title: "Архитектурная сборка", desc: "Строим цифровую структуру с архитектурной точностью." },
-  { num: "04", title: "Раскрытие", desc: "Кованая цифровая реальность с бескомпромиссной точностью." },
-];
-
-const VALUES = [
-  { title: "Вечное над трендовым", desc: "Мы проектируем на десятилетие, а не на сезон." },
-  { title: "Абсолютная точность", desc: "Точность — наша эмпатия. Каждый пиксель, каждый материал осознан." },
-  { title: "Невидимый интерфейс", desc: "Лучший дизайн ощущается, не замечается." },
+const PRINCIPLES = [
+  { title: "Авторский подход", desc: "Каждый проект — уникальная история, а не шаблон." },
+  { title: "Прозрачный процесс", desc: "Клиент всегда знает, что происходит и что будет дальше." },
+  { title: "Результат как мерило", desc: "Мы оцениваем работу по реальному результату, а не по количеству слайдов." },
+  { title: "Команда = продукт", desc: "Мы инвестируем в людей, потому что сильный проект делают сильные люди." },
 ];
 
 export default function AboutPage() {
@@ -28,74 +22,66 @@ export default function AboutPage() {
         {/* Hero */}
         <section className={styles.hero}>
           <div className="container">
-            <h1 className={styles.heroTitle}>
-              The Silent<br /> Curator.
+            <p className="section-label">О студии</p>
+            <h1 className={styles.title}>
+              Мы — <span className="text-accent">Студия 1977</span>
             </h1>
-            <p className={styles.heroSub}>
-              Мы не создаем шум. Мы курируем присутствие. Студия 1977 — пространство для архитектурной идентичности.
+            <p className={styles.lead}>
+              Креативное агентство полного цикла. Мы не просто делаем проекты — мы создаём
+              опыт, который двигает бренды вперёд.
             </p>
           </div>
         </section>
 
         {/* Manifesto */}
-        <section className={`${styles.manifesto} bg-surface-low`}>
+        <section className={`section ${styles.manifesto}`}>
           <div className="container">
-            <div className={styles.manifGrid}>
+            <div className={styles.manifestoGrid}>
               <div>
                 <p className="section-label">Манифест</p>
-                <blockquote className={styles.manifQuote}>
-                  &ldquo;Дизайн — это искусство знать, что убрать. Мы строим монументы сдержанности в эпоху цифрового шума.&rdquo;
-                </blockquote>
+                <h2 className="section-title">Почему 1977?</h2>
               </div>
-              <div>
-                <p className={styles.manifText}>
-                  В Студии 1977 мы верим, что роскошь обнаруживается в пустоте — в пространстве между линиями. Наша философия The Silent Curator диктует: каждый пиксель, каждый выбор материала, каждая тень должны оправдать своё существование.
+              <div className={styles.manifestoText}>
+                <p>
+                  1977 — это не дата основания. Это символ. Год, когда всё самое интересное
+                  только начиналось: панк, новая волна кинематографа, дерзость в дизайне.
                 </p>
-                <p className={styles.manifText}>
-                  Мы отвергаем эфемерные тренды рынка. Мы преследуем атмосферный обсидиан вечного мастерства.
+                <p>
+                  Мы взяли этот дух — создавать что-то настоящее, нешаблонное, с характером.
+                  Студия работает на стыке маркетинга, event-индустрии, брендинга и digital.
+                  Мы не разделяем эти дисциплины — мы соединяем их в целостный продукт для клиента.
+                </p>
+                <p>
+                  Наш подход: думать стратегически, делать красиво, закрывать результатом.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Process */}
-        <section className={styles.process}>
+        {/* Principles */}
+        <section className={`section ${styles.principles}`}>
           <div className="container">
-            <p className="section-label">Процесс 1977</p>
-            <div className={styles.processGrid}>
-              {PROCESS.map((step) => (
-                <div key={step.num} className={styles.processCard}>
-                  <span className={styles.processNum}>{step.num}</span>
-                  <h3 className={styles.processTitle}>{step.title}</h3>
-                  <p className={styles.processDesc}>{step.desc}</p>
+            <p className="section-label">Принципы</p>
+            <h2 className="section-title">Как мы устроены</h2>
+            <div className={styles.principleGrid}>
+              {PRINCIPLES.map((p, i) => (
+                <div key={i} className={`card ${styles.principleCard}`}>
+                  <span className={styles.principleNum}>0{i + 1}</span>
+                  <h3>{p.title}</h3>
+                  <p>{p.desc}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Values */}
-        <section className={`${styles.values} bg-surface-low`}>
-          <div className="container">
-            <h2 className="section-title">Наша позиция</h2>
-            <div className={styles.valuesGrid}>
-              <div className={styles.valuesList}>
-                {VALUES.map((v) => (
-                  <div key={v.title} className={styles.valueItem}>
-                    <h3 className={styles.valueTitle}>{v.title}</h3>
-                    <p className={styles.valueDesc}>{v.desc}</p>
-                  </div>
-                ))}
-              </div>
-              <div className={styles.valuesCta}>
-                <div className={styles.valuesCtaInner}>
-                  <h3 className={styles.valuesCtaTitle}>Присоединяйтесь</h3>
-                  <p className={styles.valuesCtaText}>Ищем партнёрства с теми, кто ценит вес тишины.</p>
-                  <a href="/contact" className="btn btn-primary">Связаться</a>
-                </div>
-              </div>
-            </div>
+        {/* CTA */}
+        <section className={`section ${styles.ctaSection}`}>
+          <div className={`container ${styles.ctaInner}`}>
+            <h2 className={styles.ctaTitle}>Хотите узнать нас лучше?</h2>
+            <p className={styles.ctaSub}>Запишитесь на знакомство — расскажем, как устроена наша работа.</p>
+            <a href="/contact" className="btn btn-primary">Связаться</a>
           </div>
         </section>
       </main>

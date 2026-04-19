@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import styles from "./page.module.css";
 
 export const metadata = {
@@ -8,25 +10,19 @@ export const metadata = {
 
 export default function LoginPage() {
   return (
-    <main className={styles.main}>
-      <div className={styles.loginContainer}>
-        <div className={styles.logoRow}>
-          <Link href="/" className={styles.backLink}>← На сайт</Link>
-          <div className={styles.logo}>
-            <span className={styles.logoMark}>Portal</span>
-            <span className={styles.logoText}>Studio 1977</span>
-          </div>
-        </div>
-        
+    <>
+      <Header />
+      <main className={styles.main}>
         <section className={styles.loginSection}>
           <div className={styles.card}>
-            <p className={styles.label}>Авторизация</p>
-            <h1 className={styles.title}>Фабрика 1977</h1>
+            <p className="section-label">Авторизация</p>
+            <h1 className={styles.title}>Панель студии</h1>
             <p className={styles.subtitle}>
-              Войдите под своим корпоративным аккаунтом Битрикс24, чтобы получить доступ к своим задачам и проектам.
+              Войдите под своим корпоративным аккаунтом Битрикс24,
+              чтобы получить доступ к задачам и проектам.
             </p>
             
-            <Link href="/api/auth/login" className={`${styles.loginBtn} btn btn-primary`}>
+            <Link href="/api/auth/login" className="btn btn-primary">
               Войти через Битрикс24
             </Link>
             
@@ -35,11 +31,8 @@ export default function LoginPage() {
             </div>
           </div>
         </section>
-
-        <footer className={styles.footer}>
-          © 1977 STUDIO. ALL RIGHTS RESERVED.
-        </footer>
-      </div>
-    </main>
+      </main>
+      <Footer />
+    </>
   );
 }

@@ -1,101 +1,96 @@
 "use client";
-
 import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import styles from "./page.module.css";
 
-const BITRIX_WEBHOOK = "https://1977likeit.bitrix24.ru/rest/1/bt2z4jtdry36b1m2";
-
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
-  const [sending, setSending] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSending(true);
-    const form = e.target as HTMLFormElement;
-    const fd = new FormData(form);
-
-    try {
-      await fetch(`${BITRIX_WEBHOOK}/crm.lead.add.json`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          fields: {
-            TITLE: `Контакт — ${fd.get("name")}`,
-            NAME: fd.get("name") as string,
-            EMAIL: [{ VALUE: fd.get("email") as string, VALUE_TYPE: "WORK" }],
-            COMMENTS: fd.get("brief") as string,
-            SOURCE_ID: "WEB",
-            SOURCE_DESCRIPTION: "Форма контактов studio1977.vercel.app",
-          },
-        }),
-      });
-      setSent(true);
-    } catch {
-      alert("Ошибка. Свяжитесь напрямую: +7 978 85 45 123");
-    } finally {
-      setSending(false);
-    }
+    setSent(true);
   };
 
   return (
     <>
       <Header />
       <main>
-        <section className={styles.page}>
-          <div className={styles.grid}>
-            <div className={styles.left}>
-              <h1 className={styles.title}>
-                Создадим<br />
-                <span className="bronze-text">будущее</span><br />
-                вместе.
-              </h1>
-              <p className={styles.subtitle}>
-                Расскажите о задаче — мы предложим формат и решение.
-              </p>
-              <div className={styles.office}>
-                <p className={styles.officeLabel}>Контакты</p>
-                <p className={styles.officeAddr}>+7 978 85 45 123</p>
-                <a href="https://t.me/letoff_tv" className={styles.officeLink}>@letoff_tv в Telegram</a>
-              </div>
-            </div>
+        <section className={styles.hero}>
+          <div className="container">
+            <p className="section-label">Контакты</p>
+            <h1 className={styles.title}>Давайте поговорим</h1>
+            <p className={styles.lead}>
+              Напишите нам, позвоните или заполните форму — мы ответим в течение рабочего дня.
+            </p>
+          </div>
+        </section>
 
-            <div className={styles.right}>
-              {sent ? (
-                <div className={styles.success}>
-                  <h2>Заявка отправлена</h2>
-                  <p>Мы свяжемся с вами в ближайшее время.</p>
+        <section className={`section ${styles.content}`}>
+          <div className="container">
+            <div className={styles.grid}>
+              {/* Info */}
+              <div className={styles.info}>
+                <div className={styles.infoBlock}>
+                  <h3 className={styles.infoTitle}>Email</h3>
+                  <a href="mailto:hello@studio1977.ru" className={styles.infoValue}>hello@studio1977.ru</a>
                 </div>
-              ) : (
-                <div className={styles.formCard}>
-                  <h2 className={styles.formTitle}>Прямой запрос</h2>
-                  <p className={styles.formSub}>Конфиденциально</p>
-                  <form onSubmit={handleSubmit} className={styles.form}>
-                    <div className={styles.formRow}>
+                <div className={styles.infoBlock}>
+                  <h3 className={styles.infoTitle}>Телефон</h3>
+                  <a href="tel:+79001234567" className={styles.infoValue}>+7 900 123-45-67</a>
+                </div>
+                <div className={styles.infoBlock}>
+                  <h3 className={styles.infoTitle}>Адрес</h3>
+                  <p className={styles.infoValue}>Москва, Россия</p>
+                </div>
+                <div className={styles.infoBlock}>
+                  <h3 className={styles.infoTitle}>Мессенджеры</h3>
+                  <div className={styles.socials}>
+                    <a href="#" className={styles.socialLink}>Telegram</a>
+                    <a href="#" className={styles.socialLink}>WhatsApp</a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Form */}
+              <div className={styles.formWrap}>
+                {sent ? (
+                  <div className={styles.success}>
+                    <span className={styles.successIcon}>✓</span>
+                    <h3>Заявка отправлена</h3>
+                    <p>Мы свяжемся с вами в ближайшее время.</p>
+                  </div>
+                ) : (
+                  <form className={styles.form} onSubmit={handleSubmit}>
+                    <h2 className={styles.formTitle}>Быстрая заявка</h2>
+                    <div className={styles.fieldRow}>
                       <div className={styles.field}>
-                        <label>Имя</label>
-                        <input type="text" name="name" required placeholder="Как к вам обращаться?" />
+                        <label htmlFor="contact-name">Имя</label>
+                        <input id="contact-name" type="text" placeholder="Как к вам обращаться?" required />
                       </div>
                       <div className={styles.field}>
-                        <label>Email</label>
-                        <input type="email" name="email" placeholder="email@company.com" />
+                        <label htmlFor="contact-company">Компания</label>
+                        <input id="contact-company" type="text" placeholder="Название компании" />
+                      </div>
+                    </div>
+                    <div className={styles.fieldRow}>
+                      <div className={styles.field}>
+                        <label htmlFor="contact-email">Email</label>
+                        <input id="contact-email" type="email" placeholder="email@example.com" required />
+                      </div>
+                      <div className={styles.field}>
+                        <label htmlFor="contact-phone">Телефон</label>
+                        <input id="contact-phone" type="tel" placeholder="+7 ..." />
                       </div>
                     </div>
                     <div className={styles.field}>
-                      <label>Расскажите о задаче</label>
-                      <textarea name="brief" rows={4} placeholder="Опишите проект..." />
+                      <label htmlFor="contact-message">Сообщение</label>
+                      <textarea id="contact-message" rows={5} placeholder="Расскажите коротко о задаче" required />
                     </div>
-                    <div className={styles.formActions}>
-                      <button type="submit" className="btn btn-primary" disabled={sending}>
-                        {sending ? "Отправляем..." : "Отправить"}
-                      </button>
-                      <span className={styles.hint}>Ответ в течение 24 часов</span>
-                    </div>
+                    <button type="submit" className="btn btn-primary">Отправить заявку</button>
                   </form>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </div>
         </section>

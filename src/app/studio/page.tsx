@@ -4,7 +4,7 @@ import { BitrixClient, BitrixSession } from "@/lib/bitrix-api";
 import styles from "./page.module.css";
 
 export const metadata = {
-  title: "Рабочее пространство — Студия 1977",
+  title: "Панель студии — Студия 1977",
   robots: "noindex, nofollow",
 };
 
@@ -16,9 +16,9 @@ export default async function StudioDashboard() {
     return (
       <div className={styles.layout}>
         <div className={styles.authError}>
-          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800 }}>Доступ ограничен</h2>
-          <p style={{ fontFamily: "var(--font-heading)", opacity: 0.6 }}>Пожалуйста, авторизуйтесь через корпоративный портал.</p>
-          <Link href="/studio/login" className="btn btn-primary" style={{ marginTop: "24px" }}>Войти в Workspace</Link>
+          <h2>Доступ ограничен</h2>
+          <p>Пожалуйста, авторизуйтесь через корпоративный портал.</p>
+          <Link href="/studio/login" className="btn btn-primary" style={{ marginTop: "24px" }}>Войти</Link>
         </div>
       </div>
     );
@@ -27,204 +27,137 @@ export default async function StudioDashboard() {
   const session: BitrixSession = JSON.parse(sessionCookie.value);
   const client = new BitrixClient(session);
 
-  // Fetch real data for context
   const [projectsData, leadsData, tasksData] = await Promise.all([
     client.getProjects(),
     client.getLeads(),
     client.getTasks(session.userId),
   ]);
 
-  // Check for expired token
+  // Handle expired token
   if (projectsData.error === "AUTH_EXPIRED") {
     return (
       <div className={styles.layout}>
         <div className={styles.authError}>
-          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800 }}>Сессия истекла</h2>
-          <p style={{ fontFamily: "var(--font-heading)", opacity: 0.6 }}>Ваш токен Битрикс24 больше не действителен. Пожалуйста, перезайдите.</p>
+          <h2>Сессия истекла</h2>
+          <p>Ваш токен Битрикс24 больше не действителен.</p>
           <Link href="/api/auth/logout" className="btn btn-primary" style={{ marginTop: "24px" }}>Обновить сессию</Link>
         </div>
       </div>
     );
   }
 
-  const projects = projectsData || [];
-  const leads = leadsData || [];
-  const tasks = tasksData || [];
-
-  const activeProject = projects[0] || { TITLE: "Проект не выбран", STAGE_ID: "Подготовка" };
-  const completionPercent = projects[0] ? 64 : 0; 
+  const projects = Array.isArray(projectsData) ? projectsData : [];
+  const leads = Array.isArray(leadsData) ? leadsData : [];
+  const tasks = Array.isArray(tasksData) ? tasksData : [];
 
   return (
     <div className={styles.layout}>
-      {/* Sidebar Navigation */}
       <aside className={styles.sidebar}>
         <div className={styles.sidebarLogo}>
-          <span className={styles.logoMark}>Portal</span>
-          <span className={styles.logoText}>Studio 1977</span>
+          <span className={styles.logoMark}>1977</span>
+          <span className={styles.logoText}>Студия</span>
         </div>
         <nav className={styles.sidebarNav}>
-          <Link href="/studio" className={styles.navActive}>
-            <span>Дашборд</span>
-          </Link>
-          <Link href="/studio/projects">
-            <span>Проекты</span>
-          </Link>
-          <Link href="/studio/tasks">
-            <span>Задачи</span>
-          </Link>
-          <Link href="/studio/clients">
-            <span>Клиенты</span>
-          </Link>
-          <Link href="/studio/leads">
-            <span>Лиды</span>
-          </Link>
-          <Link href="/studio/team">
-            <span>Команда</span>
-          </Link>
+          <Link href="/studio" className={styles.navActive}>Дашборд</Link>
+          <Link href="/studio/projects">Проекты</Link>
+          <Link href="/studio/tasks">Задачи</Link>
+          <Link href="/studio/clients">Клиенты</Link>
+          <Link href="/studio/leads">Лиды</Link>
+          <Link href="/studio/team">Команда</Link>
         </nav>
-        <div className={styles.userProfile}>
-          <div className={styles.avatar}>ID</div>
-          <div className={styles.userInfo}>
-            <div className={styles.userName}>Сотрудник #{session.userId}</div>
-            <div className={styles.userRole}>Команда 1977</div>
-          </div>
-        </div>
+        <Link href="/" className={styles.sidebarBack}>← На сайт</Link>
       </aside>
 
-      {/* Main Content Area */}
       <main className={styles.main}>
-        <header className={styles.header}>
-          <div className={styles.headerInfo}>
-            <h1>Рабочее пространство</h1>
-            <p>{activeProject.TITLE} / Обзор</p>
-          </div>
-          <div className={styles.headerActions}>
-            <Link href="/contact" className="btn btn-outline" style={{ border: "1px solid rgba(155, 143, 131, 0.2)", fontSize: "0.75rem" }}>
-              Поддержка
-            </Link>
-            <Link href="/brief" className="btn btn-primary" style={{ fontSize: "0.75rem", background: "linear-gradient(135deg, #e6c093 0%, #8C6D46 100%)" }}>
-              Новый проект
-            </Link>
+        <header className={styles.topBar}>
+          <h1 className={styles.pageTitle}>Панель студии</h1>
+          <div className={styles.userBadge}>
+            <span className={styles.avatar}>{session.userId.charAt(0).toUpperCase()}</span>
+            <span>Сотрудник #{session.userId}</span>
           </div>
         </header>
 
-        <div className={styles.dashContent}>
-          <div className={styles.grid}>
-            {/* Left Column */}
-            <section className={styles.milestoneCard}>
-              <div className={styles.milestoneHeader}>
-                <div>
-                  <h2 className={styles.milestoneTitle}>{activeProject.TITLE}</h2>
-                  <p className={styles.milestoneSub}>Этап: {activeProject.STAGE_ID}</p>
-                </div>
-                <div style={{ textAlign: "right" }}>
-                  <div className={styles.progressValue}>{completionPercent}%</div>
-                  <div className={styles.progressLabel}>Завершено</div>
-                </div>
-              </div>
-              <div className={styles.progressBar}>
-                <div className={styles.progressFill} style={{ width: `${completionPercent}%` }} />
-              </div>
-              <div className={styles.progressMeta}>
-                <span>Фаза 02: Исполнение</span>
-                <span>Фаза 03: Сдача</span>
-              </div>
-            </section>
-
-            {/* Right Column: Quick Actions */}
-            <aside className={styles.sideSection}>
-              <div className={styles.actionPanel}>
-                <span className={styles.actionLabel}>Быстрые действия</span>
-                <Link href="/studio/tasks" className={styles.actionBtn}>
-                  <div className={styles.actionInfo}>
-                    <span className={styles.actionText}>Задачи ({tasks.length})</span>
-                  </div>
-                  <span style={{ opacity: 0.3 }}>→</span>
-                </Link>
-                <Link href="/studio/leads" className={styles.actionBtn}>
-                  <div className={styles.actionInfo}>
-                    <span className={styles.actionText}>Лиды ({leads.length})</span>
-                  </div>
-                  <span style={{ opacity: 0.3 }}>→</span>
-                </Link>
-                <Link href="https://t.me/letoff_tv" target="_blank" className={styles.actionBtn}>
-                  <div className={styles.actionInfo}>
-                    <span className={styles.actionText}>Telegram чат</span>
-                  </div>
-                  <span style={{ opacity: 0.3 }}>→</span>
-                </Link>
-              </div>
-            </aside>
-
-            {/* Bento Gallery (Lower Left) */}
-            <section className={styles.bentoSection}>
-              <div className={styles.bentoHeader}>
-                <h3 className={styles.bentoTitle}>Последние материалы</h3>
-                <Link href="/cases" className={styles.progressLabel} style={{ textDecoration: "underline" }}>В архив →</Link>
-              </div>
-              <div className={styles.bentoGrid}>
-                <div className={styles.bentoMain}>
-                  <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2070&auto=format&fit=crop" className={styles.bentoImg} alt="Render 1" />
-                  <div className={styles.bentoOverlay} />
-                </div>
-                <div className={styles.bentoSide}>
-                  <div className={styles.bentoItem}>
-                    <img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?q=80&w=2070&auto=format&fit=crop" className={styles.bentoImg} alt="Render 2" />
-                    <div className={styles.bentoOverlay} />
-                  </div>
-                  <div className={styles.bentoItem}>
-                    <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=1932&auto=format&fit=crop" className={styles.bentoImg} alt="Render 3" />
-                    <div className={styles.bentoOverlay} />
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* Recent Activity (Lower Right) */}
-            <aside className={styles.sideSection}>
-              <div className={styles.feedPanel}>
-                <span className={styles.actionLabel}>Активность</span>
-                <div style={{ display: "flex", flexDirection: "column", gap: "24px", marginTop: "16px" }}>
-                  {leads.slice(0, 3).map((l: any) => (
-                    <div key={l.ID} className={styles.feedItem}>
-                      <div className={styles.feedDot} />
-                      <div>
-                        <p className={styles.feedText}>Новый лид: {l.TITLE}</p>
-                        <p className={styles.feedTime}>{new Date(l.DATE_CREATE).toLocaleDateString()}</p>
-                      </div>
-                    </div>
-                  ))}
-                  {tasks.length > 0 ? (
-                    tasks.slice(0, 1).map((t: any) => (
-                      <div key={t.id} className={styles.feedItem}>
-                        <div className={`${styles.feedDot} ${styles.muted}`} />
-                        <div>
-                          <p className={styles.feedText}>Задача: {t.title}</p>
-                          <p className={styles.feedTime}>Статус: В работе</p>
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <div className={styles.feedItem}>
-                      <div className={`${styles.feedDot} ${styles.muted}`} />
-                      <p className={styles.feedTime}>Нет новых событий</p>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </aside>
+        {/* Stats */}
+        <div className={styles.statsGrid}>
+          <div className={styles.stat}>
+            <span className={styles.statNum}>{projects.length}</span>
+            <span className={styles.statLabel}>Проектов в работе</span>
           </div>
-
-          {/* Philosophy Quote */}
-          <section className={styles.quoteSection}>
-            <div className={styles.quoteWrap}>
-              <blockquote className={styles.quoteText}>
-                &ldquo;Дизайн — это не то, как предмет выглядит и ощущается. Дизайн — это то, как он работает и как он сохраняется во времени.&rdquo;
-              </blockquote>
-              <cite className={styles.quoteCite}>Философия Студии №04</cite>
-            </div>
-          </section>
+          <div className={styles.stat}>
+            <span className={styles.statNum}>{leads.length}</span>
+            <span className={styles.statLabel}>Новых лидов</span>
+          </div>
+          <div className={styles.stat}>
+            <span className={styles.statNum}>{tasks.length}</span>
+            <span className={styles.statLabel}>Задач</span>
+          </div>
+          <div className={styles.stat}>
+            <span className={styles.statNum} style={{ color: "var(--color-warning)" }}>
+              {tasks.filter((t: any) => t.deadline && new Date(t.deadline) < new Date()).length}
+            </span>
+            <span className={styles.statLabel}>Просроченных</span>
+          </div>
         </div>
+
+        {/* Projects */}
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>Проекты</h2>
+            <span className={styles.sectionMeta}>{projects.length} активных</span>
+          </div>
+          <div className={styles.table}>
+            <div className={styles.tableHead}>
+              <span>Проект</span>
+              <span>Клиент</span>
+              <span>Статус</span>
+              <span>Ответственный</span>
+              <span>Дата создания</span>
+            </div>
+            {projects.length > 0 ? (
+              projects.map((p: any) => (
+                <div key={p.ID} className={styles.tableRow}>
+                  <span className={styles.projectName}>{p.TITLE}</span>
+                  <span>{p.COMPANY_TITLE || "—"}</span>
+                  <span className={styles.badge}>{p.STAGE_ID}</span>
+                  <span>ID: {p.ASSIGNED_BY_ID}</span>
+                  <span className={styles.muted}>{new Date(p.DATE_CREATE).toLocaleDateString()}</span>
+                </div>
+              ))
+            ) : (
+              <div className={styles.empty}>Нет активных проектов</div>
+            )}
+          </div>
+        </section>
+
+        {/* Leads */}
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>Последние лиды</h2>
+            <span className={styles.sectionMeta}>{leads.length} новых</span>
+          </div>
+          <div className={styles.table}>
+            <div className={styles.tableHead}>
+              <span>Имя</span>
+              <span>Компания</span>
+              <span>Направление</span>
+              <span>Дата</span>
+              <span>Статус</span>
+            </div>
+            {leads.length > 0 ? (
+              leads.map((l: any) => (
+                <div key={l.ID} className={styles.tableRow}>
+                  <span className={styles.projectName}>{l.NAME} {l.LAST_NAME}</span>
+                  <span>{l.COMPANY_TITLE || "—"}</span>
+                  <span>{l.TITLE}</span>
+                  <span className={styles.muted}>{new Date(l.DATE_CREATE).toLocaleDateString()}</span>
+                  <span className={styles.badge}>{l.STATUS_ID}</span>
+                </div>
+              ))
+            ) : (
+              <div className={styles.empty}>Нет новых лидов</div>
+            )}
+          </div>
+        </section>
       </main>
     </div>
   );

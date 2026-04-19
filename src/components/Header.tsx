@@ -1,73 +1,64 @@
 "use client";
-
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
 import styles from "./Header.module.css";
 
-const NAV_LINKS = [
-  { href: "/about", label: "О студии" },
-  { href: "/services", label: "Услуги" },
-  { href: "/cases", label: "Портфолио" },
-  { href: "/contact", label: "Контакт" },
+const NAV_ITEMS = [
+  { label: "О студии", href: "/about" },
+  { label: "Услуги", href: "/services" },
+  { label: "Кейсы", href: "/cases" },
+  { label: "Команда", href: "/team" },
+  { label: "Контакты", href: "/contact" },
 ];
 
 export default function Header() {
+  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <nav className={styles.nav}>
+    <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
       <div className={styles.inner}>
         <Link href="/" className={styles.logo}>
-          <Image
-            src="/images/brand/logo-white.png"
-            alt="Studio 1977"
-            width={140}
-            height={32}
-            className={styles.logoImg}
-            priority
-          />
+          <span className={styles.logoMark}>1977</span>
+          <span className={styles.logoText}>СТУДИЯ</span>
         </Link>
 
-        <div className={styles.links}>
-          {NAV_LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className={styles.link}>
-              {link.label}
+        <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ""}`}>
+          {NAV_ITEMS.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={styles.navLink}
+              onClick={() => setMenuOpen(false)}
+            >
+              {item.label}
             </Link>
           ))}
-        </div>
-
-        <Link href="/studio" className={styles.portal}>
-          Панель клиента
-        </Link>
+          <Link
+            href="/brief"
+            className={`btn btn-primary ${styles.navCta}`}
+            onClick={() => setMenuOpen(false)}
+          >
+            Обсудить проект
+          </Link>
+        </nav>
 
         <button
-          className={styles.burger}
+          className={`${styles.burger} ${menuOpen ? styles.burgerOpen : ""}`}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Меню"
         >
           <span />
           <span />
+          <span />
         </button>
       </div>
-
-      {menuOpen && (
-        <div className={styles.mobileMenu}>
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={styles.mobileLink}
-              onClick={() => setMenuOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <Link href="/studio" className={styles.mobilePortal} onClick={() => setMenuOpen(false)}>
-            Панель клиента
-          </Link>
-        </div>
-      )}
-    </nav>
+    </header>
   );
 }
