@@ -87,7 +87,7 @@ export class BitrixClient {
   /**
    * Call REST Method
    */
-  async call(method: string, params: Record<string, any> = {}) {
+  async call(method: string, params: Record<string, any> = {}): Promise<any> {
     if (!this.session) {
       // No session → use webhook for system-wide requests
       const WEBHOOK_URL = "https://1977likeit.bitrix24.ru/rest/1/bt2z4jtdry36b1m2";
