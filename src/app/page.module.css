@@ -97,7 +97,14 @@
   animation: fadeUp 0.8s var(--ease-out) 0.45s both;
 }
 
-/* ---- AUDIENCE ---- */
+.heroFootnote {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--space-lg);
+  animation: fadeUp 0.8s var(--ease-out) 0.6s both;
+}
+
+/* ---- AUDIENCE (Bento Grid) ---- */
 .audience {
   background: var(--color-bg);
   border-top: 1px solid var(--color-border);
@@ -105,27 +112,48 @@
 
 .audienceGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--space-xl);
-  margin-top: var(--space-2xl);
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1px;
+  margin-top: var(--space-xl);
 }
 
 .audienceCard {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: var(--space-sm);
-  padding: var(--space-xl);
+  padding: var(--space-lg);
   background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  transition: all var(--duration-fast);
+  min-height: 200px;
+  transition: all var(--duration-base) var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+
+.audienceCard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 70%, var(--color-accent-glow), transparent 60%);
+  opacity: 0;
+  transition: opacity var(--duration-base);
+  pointer-events: none;
 }
 
 .audienceCard:hover {
-  border-color: var(--color-accent);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
+  background: var(--color-bg-elevated);
 }
+
+.audienceCard:hover::before {
+  opacity: 1;
+}
+
+/* Bento layout: vary card sizes */
+.audienceCard:nth-child(1) { grid-column: span 5; }
+.audienceCard:nth-child(2) { grid-column: span 7; }
+.audienceCard:nth-child(3) { grid-column: span 4; }
+.audienceCard:nth-child(4) { grid-column: span 4; }
+.audienceCard:nth-child(5) { grid-column: span 4; }
 
 .audienceTitle {
   font-size: var(--fs-h3);
@@ -271,63 +299,59 @@
   font-weight: var(--fw-semibold);
 }
 
-/* ---- PROCESS ---- */
+/* ---- PROCESS (Stitch Methodology) ---- */
 .process {
   background: var(--color-bg);
 }
 
 .processGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
   margin-top: var(--space-xl);
-  position: relative;
-}
-
-.processGrid::before {
-  content: '';
-  position: absolute;
-  top: 32px;
-  left: 10%;
-  right: 10%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-border-hover), transparent);
 }
 
 .processStep {
-  text-align: center;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  padding: var(--space-lg) 0;
+  border-bottom: 1px solid var(--color-border);
   position: relative;
+  cursor: default;
+}
+
+.processStep:last-child {
+  border-bottom: none;
 }
 
 .processNum {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  border: 1px solid var(--color-accent);
   font-family: var(--font-heading);
-  font-size: var(--fs-h3);
+  font-size: 3.5rem;
   font-weight: var(--fw-bold);
   color: var(--color-accent);
-  background: var(--color-bg);
-  position: relative;
-  z-index: 1;
-  margin-bottom: var(--space-md);
+  opacity: 0.15;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 70px;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.processStep:hover .processNum {
+  opacity: 1;
 }
 
 .processTitle {
-  font-size: var(--fs-body);
-  font-weight: var(--fw-semibold);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
   margin-bottom: var(--space-xs);
 }
 
 .processDesc {
-  font-size: var(--fs-sm);
+  font-size: var(--fs-body);
   color: var(--color-text-secondary);
-  max-width: 240px;
-  margin: 0 auto;
+  max-width: 500px;
+  line-height: 1.7;
 }
 
 /* ---- TEAM ---- */
@@ -427,76 +451,59 @@
   flex-wrap: wrap;
 }
 
-/* ---- AUDIENCE ---- */
-.audience {
-  background: var(--color-bg);
-  border-top: 1px solid var(--color-border);
-}
 
-.audienceGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--space-xl);
-  margin-top: var(--space-2xl);
-}
 
-.audienceCard {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  padding: var(--space-xl);
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  transition: all var(--duration-fast);
-}
-
-.audienceCard:hover {
-  border-color: var(--color-accent);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-}
-
-.audienceTitle {
-  font-size: var(--fs-h3);
-  font-weight: var(--fw-bold);
-  text-transform: uppercase;
-  color: var(--color-text);
-  letter-spacing: var(--tracking-tight);
-}
-
-.audienceDesc {
-  font-size: var(--fs-sm);
-  color: var(--color-text-secondary);
-  line-height: 1.7;
-}
-
-/* ---- EXPERTISE ---- */
+/* ---- EXPERTISE (Bento Grid) ---- */
 .expertise {
-  background: var(--color-surface low);
+  background: var(--color-bg-elevated);
   border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
 }
 
 .expertiseGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: var(--space-lg);
-  margin-top: var(--space-2xl);
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1px;
+  margin-top: var(--space-xl);
 }
 
 .expertiseCard {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: var(--space-xs);
   padding: var(--space-lg);
-  border-left: 2px solid var(--color-border);
-  transition: border-color var(--duration-fast);
+  background: var(--color-bg-card);
+  min-height: 180px;
+  transition: all var(--duration-base) var(--ease-out);
+  position: relative;
+}
+
+.expertiseCard::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-accent);
+  transition: width var(--duration-base) var(--ease-out);
 }
 
 .expertiseCard:hover {
-  border-color: var(--color-accent);
+  background: var(--color-bg-elevated);
 }
+
+.expertiseCard:hover::after {
+  width: 100%;
+}
+
+/* Bento layout: vary card sizes */
+.expertiseCard:nth-child(1) { grid-column: span 4; }
+.expertiseCard:nth-child(2) { grid-column: span 4; }
+.expertiseCard:nth-child(3) { grid-column: span 4; }
+.expertiseCard:nth-child(4) { grid-column: span 7; }
+.expertiseCard:nth-child(5) { grid-column: span 5; }
+.expertiseCard:nth-child(6) { grid-column: span 12; }
 
 .expertiseTitle {
   font-size: var(--fs-body);
@@ -513,12 +520,10 @@
 
 /* ---- RESPONSIVE ---- */
 @media (max-width: 900px) {
-  .processGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .processGrid::before {
-    display: none;
-  }
+  .audienceCard:nth-child(n) { grid-column: span 6; }
+  .audienceCard:nth-child(5) { grid-column: span 12; }
+  .expertiseCard:nth-child(n) { grid-column: span 6; }
+  .expertiseCard:nth-child(6) { grid-column: span 12; }
   .teamGrid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -536,10 +541,8 @@
   .casesGrid {
     grid-template-columns: 1fr;
   }
-  .processGrid {
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
-  }
+  .audienceCard:nth-child(n) { grid-column: span 12; }
+  .expertiseCard:nth-child(n) { grid-column: span 12; }
   .teamGrid {
     grid-template-columns: 1fr;
     gap: var(--space-lg);

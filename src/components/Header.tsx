@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import styles from "./Header.module.css";
 
@@ -13,16 +13,35 @@ const NAV_ITEMS = [
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => {
+      const currentY = window.scrollY;
+      setScrolled(currentY > 40);
+
+      // Don't hide header when mobile menu is open
+      if (!menuOpen) {
+        if (currentY > lastScrollY.current && currentY > 120) {
+          setHidden(true); // scrolling down past 120px → hide
+        } else {
+          setHidden(false); // scrolling up → show
+        }
+      }
+
+      lastScrollY.current = currentY;
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [menuOpen]);
 
   return (
-    <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
+    <header
+      className={`${styles.header} ${scrolled ? styles.scrolled : ""} ${hidden ? styles.hidden : ""}`}
+    >
       <div className={styles.inner}>
         <Link href="/" className={styles.logo}>
           <span className={styles.logoText}>Студия</span>

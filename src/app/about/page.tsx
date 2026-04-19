@@ -71,23 +71,31 @@ export default function AboutPage() {
             <div className={styles.approachGrid}>
               <div className={styles.approachStep}>
                 <span className={styles.stepNum}>01</span>
-                <h3 className={styles.stepTitle}>Сначала смысл</h3>
-                <p className={styles.stepDesc}>{fixTypography("Без смысла любой дизайн быстро превращается в декор. Мы выясняем, что за продукт и почему клиент должен выбрать именно его.")}</p>
+                <div>
+                  <h3 className={styles.stepTitle}>Сначала смысл</h3>
+                  <p className={styles.stepDesc}>{fixTypography("Без смысла любой дизайн быстро превращается в декор. Мы выясняем, что за продукт и почему клиент должен выбрать именно его.")}</p>
+                </div>
               </div>
               <div className={styles.approachStep}>
                 <span className={styles.stepNum}>02</span>
-                <h3 className={styles.stepTitle}>Потом структура</h3>
-                <p className={styles.stepDesc}>{fixTypography("Разкладываем проект на составляющие: сайт, воронка, CRM, сценарии и роли команды. Хорошая структура снижает хаос.")}</p>
+                <div>
+                  <h3 className={styles.stepTitle}>Потом структура</h3>
+                  <p className={styles.stepDesc}>{fixTypography("Разкладываем проект на составляющие: сайт, воронка, CRM, сценарии и роли команды. Хорошая структура снижает хаос.")}</p>
+                </div>
               </div>
               <div className={styles.approachStep}>
                 <span className={styles.stepNum}>03</span>
-                <h3 className={styles.stepTitle}>Потом форма</h3>
-                <p className={styles.stepDesc}>{fixTypography("Дизайн, тексты и мероприятия должны работать на одну идею. Красиво, но не пусто. Ярко, но не мимо задачи.")}</p>
+                <div>
+                  <h3 className={styles.stepTitle}>Потом форма</h3>
+                  <p className={styles.stepDesc}>{fixTypography("Дизайн, тексты и мероприятия должны работать на одну идею. Красиво, но не пусто. Ярко, но не мимо задачи.")}</p>
+                </div>
               </div>
               <div className={styles.approachStep}>
                 <span className={styles.stepNum}>04</span>
-                <h3 className={styles.stepTitle}>Потом внедрение</h3>
-                <p className={styles.stepDesc}>{fixTypography("Проект готов не тогда, когда файл отправлен, а когда ваша команда понимает, как этим пользоваться в работе.")}</p>
+                <div>
+                  <h3 className={styles.stepTitle}>Потом внедрение</h3>
+                  <p className={styles.stepDesc}>{fixTypography("Проект готов не тогда, когда файл отправлен, а когда ваша команда понимает, как этим пользоваться в работе.")}</p>
+                </div>
               </div>
             </div>
           </div>

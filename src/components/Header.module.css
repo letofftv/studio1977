@@ -17,6 +17,11 @@
   border-bottom: 1px solid var(--color-border);
 }
 
+.hidden {
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
 .inner {
   width: 100%;
   max-width: var(--max-width);

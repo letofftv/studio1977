@@ -97,52 +97,58 @@
   opacity: 0.85;
 }
 
-/* ====== Approach ====== */
+/* ====== Approach (Stitch Methodology style) ====== */
 .approach {
   background: var(--color-bg);
 }
 
 .approachGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
   margin-top: var(--space-xl);
 }
 
 .approachStep {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  padding: var(--space-lg) var(--space-md);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  background: var(--gradient-card);
-  transition: all var(--duration-base) var(--ease-out);
+  align-items: flex-start;
+  gap: var(--space-lg);
+  padding: var(--space-lg) 0;
+  border-bottom: 1px solid var(--color-border);
+  cursor: default;
 }
 
-.approachStep:hover {
-  border-color: var(--color-border-hover);
-  transform: translateY(-4px);
+.approachStep:last-child {
+  border-bottom: none;
 }
 
 .stepNum {
   font-family: var(--font-heading);
-  font-size: 2rem;
-  font-weight: var(--fw-black);
+  font-size: 3.5rem;
+  font-weight: var(--fw-bold);
   color: var(--color-accent);
-  opacity: 0.35;
+  opacity: 0.15;
   line-height: 1;
+  flex-shrink: 0;
+  width: 70px;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.approachStep:hover .stepNum {
+  opacity: 1;
 }
 
 .stepTitle {
   font-size: var(--fs-h3);
-  font-weight: var(--fw-semibold);
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--space-xs);
 }
 
 .stepDesc {
-  font-size: var(--fs-sm);
+  font-size: var(--fs-body);
   color: var(--color-text-secondary);
   line-height: 1.7;
+  max-width: 500px;
 }
 
 /* ====== Principles ====== */
@@ -191,12 +197,6 @@
 }
 
 /* ====== Responsive ====== */
-@media (max-width: 1024px) {
-  .approachGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 @media (max-width: 768px) {
   .manifestoGrid {
     grid-template-columns: 1fr;
@@ -209,10 +209,6 @@
 
   .yearBig {
     font-size: 5rem;
-  }
-
-  .approachGrid {
-    grid-template-columns: 1fr;
   }
 
   .principlesGrid {

@@ -143,11 +143,11 @@
   --space-xs:  0.5rem;
   --space-sm:  1rem;
   --space-md:  1.5rem;
-  --space-lg:  2.5rem;
-  --space-xl:  4rem;
-  --space-2xl: 6rem;
-  --space-3xl: 10rem;
-  --space-4xl: 8rem;
+  --space-lg:  2rem;
+  --space-xl:  3rem;
+  --space-2xl: 4.5rem;
+  --space-3xl: 7rem;
+  --space-4xl: 5.5rem;
 
   /* Transitions */
   --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
@@ -319,6 +319,22 @@ blockquote {
 .text-accent { color: var(--color-accent); }
 .text-muted  { color: var(--color-text-muted); }
 .text-secondary { color: var(--color-text-secondary); }
+.text-center { text-align: center; }
+
+.bronze-text {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-glow {
+  text-shadow: 0 0 20px var(--color-accent-glow);
+}
+
+.bg-surface-low {
+  background: var(--color-surface);
+}
 
 /* ─────────── Buttons ─────────── */
 .btn {
@@ -506,7 +522,7 @@ label {
 /* ─────────── Responsive ─────────── */
 @media (max-width: 768px) {
   :root { --header-h: 64px; }
-  .section { padding: var(--space-2xl) 0; }
+  .section { padding: var(--space-xl) 0; }
   .container { padding: 0 var(--space-sm); }
 }
 

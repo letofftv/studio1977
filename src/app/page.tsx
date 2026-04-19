@@ -207,8 +207,10 @@ export default function HomePage() {
               {PROCESS_STEPS.map((s) => (
                 <div key={s.num} className={styles.processStep}>
                   <span className={styles.processNum}>{s.num}</span>
-                  <h3 className={styles.processTitle}>{fixTypography(s.title)}</h3>
-                  <p className={styles.processDesc}>{fixTypography(s.desc)}</p>
+                  <div>
+                    <h3 className={styles.processTitle}>{fixTypography(s.title)}</h3>
+                    <p className={styles.processDesc}>{fixTypography(s.desc)}</p>
+                  </div>
                 </div>
               ))}
             </div>

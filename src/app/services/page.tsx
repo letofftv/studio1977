@@ -98,8 +98,8 @@ export default function ServicesPage() {
           <div className="container">
             <p className="section-label">Наши компетенции</p>
             <h1 className={styles.heroTitle}>
-              Crafting the<br />
-              <span className="bronze-text">uncommon.</span>
+              Создаём<br />
+              <span className="bronze-text">исключительное.</span>
             </h1>
             <p className={styles.heroSub}>
               {fixTypography("Мультидисциплинарная практика на пересечении стратегии, дизайна и технологий.")}
