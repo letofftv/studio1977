@@ -39,8 +39,8 @@ export default function Footer() {
             <div className={styles.col}>
               <h4 className={styles.colTitle}>Партнёры</h4>
               <Link href="/partners/like-it">
-                 <span style={{color: 'var(--color-primary)'}}>лайк IT</span><br/>
-                 <span style={{fontSize: '0.85em', color: 'var(--color-text-muted)'}}>ИИ и автоматизация</span>
+                <span style={{ color: 'var(--color-primary)' }}>лайк IT</span><br />
+                <span style={{ fontSize: '0.85em', color: 'var(--color-text-muted)' }}>ИИ и автоматизация</span>
               </Link>
             </div>
 

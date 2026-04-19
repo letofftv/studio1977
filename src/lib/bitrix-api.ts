@@ -155,6 +155,16 @@ export class BitrixClient {
   }
 
   /**
+   * Fetch Single Project (Deal)
+   */
+  async getProjectById(id: string) {
+    const data = await this.call("crm.deal.get", {
+      id: id
+    });
+    return data.result || null;
+  }
+
+  /**
    * Fetch Active Tasks
    */
   async getTasks(userId?: string) {

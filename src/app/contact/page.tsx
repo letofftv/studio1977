@@ -5,12 +5,46 @@ import Footer from "@/components/Footer";
 import styles from "./page.module.css";
 import { fixTypography } from "@/utils/typography";
 
+const BITRIX_WEBHOOK = "https://1977likeit.bitrix24.ru/rest/1/bt2z4jtdry36b1m2";
+
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
+    setSending(true);
+    const form = e.target as HTMLFormElement;
+    
+    // Fallback if inputs don't have name attributes, we use id since I see inputs have id="contact-name", etc.
+    const name = (form.elements.namedItem("contact-name") as HTMLInputElement)?.value;
+    const company = (form.elements.namedItem("contact-company") as HTMLInputElement)?.value;
+    const email = (form.elements.namedItem("contact-email") as HTMLInputElement)?.value;
+    const phone = (form.elements.namedItem("contact-phone") as HTMLInputElement)?.value;
+    const message = (form.elements.namedItem("contact-message") as HTMLTextAreaElement)?.value;
+
+    try {
+      await fetch(`${BITRIX_WEBHOOK}/crm.lead.add.json`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fields: {
+            TITLE: `Контакт с сайта: ${company || name}`,
+            NAME: name,
+            COMPANY_TITLE: company || undefined,
+            EMAIL: email ? [{ VALUE: email, VALUE_TYPE: "WORK" }] : undefined,
+            PHONE: phone ? [{ VALUE: phone, VALUE_TYPE: "WORK" }] : undefined,
+            COMMENTS: message ? `Сообщение: ${message}` : undefined,
+            SOURCE_ID: "WEB",
+          },
+        }),
+      });
+      setSent(true);
+    } catch {
+      alert("Произошла ошибка. Попробуйте ещё раз или напишите нам напрямую.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -109,7 +143,9 @@ export default function ContactPage() {
                         <label htmlFor="contact-message">Сообщение</label>
                         <textarea id="contact-message" rows={4} placeholder="Расскажите коротко о задаче" required />
                       </div>
-                      <button type="submit" className="btn btn-primary">Отправить заявку</button>
+                      <button type="submit" className="btn btn-primary" disabled={sending}>
+                        {sending ? "Отправка..." : "Отправить заявку"}
+                      </button>
                     </form>
                   </div>
                 )}

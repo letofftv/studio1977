@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { BitrixClient, BitrixSession } from "@/lib/bitrix-api";
 import styles from "../page.module.css";
 import StudioPageLayout from "../components/StudioPageLayout";
+import Link from "next/link";
 
 export const metadata = {
   title: "Проекты — Студия 1977",
@@ -51,13 +52,13 @@ export default async function ProjectsPage() {
           </div>
           {projects.length > 0 ? (
             projects.map((p: any) => (
-              <div key={p.ID} className={styles.tableRow}>
+              <Link href={`/studio/projects/${p.ID}`} key={p.ID} className={styles.tableRow} style={{ textDecoration: 'none', cursor: 'pointer' }}>
                 <span className={styles.projectName}>{p.TITLE}</span>
                 <span>{p.COMPANY_TITLE || "—"}</span>
                 <span className={styles.badge}>{p.STAGE_ID}</span>
                 <span>ID: {p.ASSIGNED_BY_ID}</span>
                 <span className={styles.muted}>{new Date(p.DATE_CREATE).toLocaleDateString()}</span>
-              </div>
+              </Link>
             ))
           ) : (
             <div className={styles.empty}>Нет активных проектов</div>

@@ -132,14 +132,14 @@ export default function HomePage() {
             <div className={styles.heroGrid} />
           </div>
           <div className={`container ${styles.heroInner}`}>
-            <p className={styles.heroLabel}>Креативная студия полного цикла</p>
-            <h1 className={styles.heroTitle}>
+            <p className={`${styles.heroLabel} animateSlideUp`}>Креативная студия полного цикла</p>
+            <h1 className={`${styles.heroTitle} animateSlideUp delay-100`}>
               {fixTypography("Студия 1977 помогает бизнесу выглядеть сильнее, работать понятнее и продавать увереннее")}
             </h1>
-            <p className={styles.heroSub}>
+            <p className={`${styles.heroSub} animateSlideUp delay-200`}>
               {fixTypography("Мы соединяем маркетинг, события, брендинг, сайты, CRM и ИИ-инструменты в одну рабочую систему.")}
             </p>
-            <div className={styles.heroCta}>
+            <div className={`${styles.heroCta} animateSlideUp delay-300`}>
               <Link href="/brief" className="btn btn-primary">
                 Обсудить проект
               </Link>
