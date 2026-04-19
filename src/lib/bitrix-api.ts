@@ -115,7 +115,9 @@ export class BitrixClient {
     if (userId) params.filter.RESPONSIBLE_ID = userId;
 
     const data = await this.call("tasks.task.list", params);
-    return data.result?.tasks || [];
+    // tasks.task.list structure can vary, but usually result.tasks
+    const tasks = data.result?.tasks || (Array.isArray(data.result) ? data.result : []);
+    return tasks;
   }
 
   /**
@@ -126,6 +128,27 @@ export class BitrixClient {
       select: ["ID", "TITLE", "NAME", "LAST_NAME", "COMPANY_TITLE", "STATUS_ID", "DATE_CREATE"],
       order: { "DATE_CREATE": "DESC" },
       limit: 10,
+    });
+    return data.result || [];
+  }
+
+  /**
+   * Fetch Companies (Clients)
+   */
+  async getCompanies() {
+    const data = await this.call("crm.company.list", {
+      select: ["ID", "TITLE", "COMPANY_TYPE", "REVENUE", "DATE_CREATE"],
+      order: { "DATE_CREATE": "DESC" },
+    });
+    return data.result || [];
+  }
+
+  /**
+   * Fetch Users (Team)
+   */
+  async getUsers() {
+    const data = await this.call("user.get", {
+      filter: { "ACTIVE": "Y" },
     });
     return data.result || [];
   }

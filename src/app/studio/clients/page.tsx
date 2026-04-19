@@ -1,36 +1,61 @@
 import { cookies } from "next/headers";
-import Link from "next/link";
+import { BitrixClient, BitrixSession } from "@/lib/bitrix-api";
 import styles from "../page.module.css";
+import Sidebar from "../components/Sidebar";
+
+export const metadata = {
+  title: "Клиенты — Студия 1977",
+  robots: "noindex, nofollow",
+};
 
 export default async function ClientsPage() {
+  const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get("bitrix_session");
+  if (!sessionCookie) return null;
+
+  const session: BitrixSession = JSON.parse(sessionCookie.value);
+  const client = new BitrixClient(session);
+  const companiesData = await client.getCompanies();
+  const companies = Array.isArray(companiesData) ? companiesData : [];
+
   return (
     <div className={styles.layout}>
-      <aside className={styles.sidebar}>
-        <div className={styles.sidebarLogo}>
-          <span className={styles.logoMark}>1977</span>
-          <span className={styles.logoText}>Студия</span>
-        </div>
-        <nav className={styles.sidebarNav}>
-          <Link href="/studio">Дашборд</Link>
-          <Link href="/studio/projects">Проекты</Link>
-          <Link href="/studio/tasks">Задачи</Link>
-          <Link href="/studio/clients" className={styles.navActive}>Клиенты</Link>
-          <Link href="/studio/leads">Лиды</Link>
-          <Link href="/studio/team">Команда</Link>
-          <div className={styles.navSpacer} />
-          <Link href="/api/auth/logout" className={styles.logoutBtn}>Выйти</Link>
-        </nav>
-        <Link href="/" className={styles.sidebarBack}>← На сайт</Link>
-      </aside>
+      <Sidebar />
+
       <main className={styles.main}>
         <header className={styles.topBar}>
-          <div>
-            <p className="section-label">Database</p>
-            <h1 className={styles.pageTitle}>Клиенты</h1>
+          <h1 className={styles.pageTitle}>Клиенты</h1>
+          <div className={styles.userBadge}>
+            <span className={styles.avatar}>{session.userId.charAt(0).toUpperCase()}</span>
+            <span>Сотрудник #{session.userId}</span>
           </div>
         </header>
+
         <section className={styles.section}>
-          <div className={styles.empty}>Раздел «Клиенты» находится в разработке. Данные будут синхронизированы из Контрагентов Битрикс24.</div>
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>База контрагентов</h2>
+            <span className={styles.sectionMeta}>{companies.length} компаний</span>
+          </div>
+          <div className={styles.table}>
+            <div className={styles.tableHead}>
+              <span>Название</span>
+              <span>Тип</span>
+              <span>Оборот (годовой)</span>
+              <span>Дата регистрации</span>
+            </div>
+            {companies.length > 0 ? (
+              companies.map((c: any) => (
+                <div key={c.ID} className={styles.tableRow}>
+                  <span className={styles.projectName}>{c.TITLE}</span>
+                  <span>{c.COMPANY_TYPE || "Клиент"}</span>
+                  <span>{c.REVENUE ? `${Number(c.REVENUE).toLocaleString()} ₽` : "—"}</span>
+                  <span className={styles.muted}>{new Date(c.DATE_CREATE).toLocaleDateString()}</span>
+                </div>
+              ))
+            ) : (
+              <div className={styles.empty}>Список компаний пуст</div>
+            )}
+          </div>
         </section>
       </main>
     </div>

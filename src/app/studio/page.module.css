@@ -66,11 +66,31 @@
 }
 
 .sidebarBack {
+  display: block;
   font-size: var(--fs-xs);
   color: var(--color-text-muted);
   transition: color var(--duration-fast);
+  margin-top: 12px;
 }
 .sidebarBack:hover { color: var(--color-accent); }
+
+.sidebarFooter {
+  margin-top: auto;
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-md);
+}
+
+.sidebarLogout {
+  display: block;
+  font-size: var(--fs-sm);
+  color: var(--color-error);
+  opacity: 0.8;
+  transition: opacity var(--duration-fast);
+}
+
+.sidebarLogout:hover {
+  opacity: 1;
+}
 
 .main {
   flex: 1;

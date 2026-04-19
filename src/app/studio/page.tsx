@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import { BitrixClient, BitrixSession } from "@/lib/bitrix-api";
 import styles from "./page.module.css";
+import Sidebar from "./components/Sidebar";
 
 export const metadata = {
   title: "Панель студии — Студия 1977",
@@ -52,28 +53,14 @@ export default async function StudioDashboard() {
 
   return (
     <div className={styles.layout}>
-      <aside className={styles.sidebar}>
-        <div className={styles.sidebarLogo}>
-          <span className={styles.logoMark}>1977</span>
-          <span className={styles.logoText}>Студия</span>
-        </div>
-        <nav className={styles.sidebarNav}>
-          <Link href="/studio" className={styles.navActive}>Дашборд</Link>
-          <Link href="/studio/projects">Проекты</Link>
-          <Link href="/studio/tasks">Задачи</Link>
-          <Link href="/studio/clients">Клиенты</Link>
-          <Link href="/studio/leads">Лиды</Link>
-          <Link href="/studio/team">Команда</Link>
-        </nav>
-        <Link href="/" className={styles.sidebarBack}>← На сайт</Link>
-      </aside>
+      <Sidebar />
 
       <main className={styles.main}>
         <header className={styles.topBar}>
           <h1 className={styles.pageTitle}>Панель студии</h1>
           <div className={styles.userBadge}>
             <span className={styles.avatar}>{session.userId.charAt(0).toUpperCase()}</span>
-            <span>Сотрудник #{session.userId}</span>
+            <span>Сотрудник #{session.userId} {session.userId === "1" ? "(Админ)" : ""}</span>
           </div>
         </header>
 
