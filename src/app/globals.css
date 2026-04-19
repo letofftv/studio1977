@@ -134,10 +134,10 @@
 
   /* Radius */
   --radius:      4px;
-  --radius-sm:   8px;
-  --radius-md:   12px;
-  --radius-lg:   20px;
-  --radius-full: 9999px;
+  --radius-sm:   4px;
+  --radius-md:   4px;
+  --radius-lg:   4px;
+  --radius-full: 4px;
 
   /* Spacing */
   --space-xs:  0.5rem;

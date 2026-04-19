@@ -10,29 +10,39 @@ export const metadata = {
 
 export default function LoginPage() {
   return (
-    <>
-      <Header />
+    <div className={styles.layout}>
+      <header className={styles.header}>
+        <Link href="/" className={styles.logo}>
+          <span className={styles.logoMark}>1977</span>
+          <span className={styles.logoText}>Студия</span>
+        </Link>
+      </header>
+      
       <main className={styles.main}>
-        <section className={styles.loginSection}>
-          <div className={styles.card}>
-            <p className="section-label">Авторизация</p>
-            <h1 className={styles.title}>Панель студии</h1>
+        <div className={styles.card}>
+          <div className={styles.cardHero}>
+            <h1 className={styles.title}>Вход в кабинет</h1>
             <p className={styles.subtitle}>
-              Войдите под своим корпоративным аккаунтом Битрикс24,
-              чтобы получить доступ к задачам и проектам.
+              Используйте ваш корпоративный Bitrix24 для авторизации
             </p>
-            
-            <Link href="/api/auth/login" className="btn btn-primary">
+          </div>
+          
+          <div className={styles.actions}>
+            <Link href="/api/auth/login" className="btn btn-primary" style={{ width: '100%' }}>
               Войти через Битрикс24
             </Link>
-            
-            <div className={styles.hint}>
-              Забыли пароль? Восстановите его в своём портале Bitrix24.
-            </div>
           </div>
-        </section>
+          
+          <div className={styles.footer}>
+            <p className={styles.hint}>
+              Доступ только для сотрудников и партнёров Studio 1977
+            </p>
+            <Link href="/" className={styles.backLink}>
+              ← Вернуться на сайт
+            </Link>
+          </div>
+        </div>
       </main>
-      <Footer />
-    </>
+    </div>
   );
 }

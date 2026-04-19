@@ -1,43 +1,98 @@
-.main {
-  min-height: 80vh;
+.layout {
+  min-height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   background: var(--color-bg);
   transition: var(--theme-transition);
 }
 
-.loginSection {
-  width: 100%;
-  max-width: 480px;
+.header {
   padding: var(--space-xl) var(--space-md);
 }
 
-.card {
-  background: var(--gradient-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-xl);
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+}
+
+.logoMark {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--color-accent);
+}
+
+.logoText {
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  opacity: 0.6;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  padding: var(--space-xl);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.cardHero {
+  margin-bottom: var(--space-xl);
 }
 
 .title {
   font-family: var(--font-heading);
-  font-size: var(--fs-h2);
+  font-size: var(--fs-h3);
   font-weight: var(--fw-bold);
-  margin: var(--space-sm) 0 var(--space-lg);
+  margin-bottom: var(--space-xs);
 }
 
 .subtitle {
   font-family: var(--font-body);
   font-size: var(--fs-sm);
   color: var(--color-text-secondary);
-  line-height: 1.6;
+  line-height: 1.5;
+}
+
+.actions {
   margin-bottom: var(--space-xl);
+}
+
+.footer {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-lg);
 }
 
 .hint {
   font-size: var(--fs-xs);
   color: var(--color-text-muted);
-  margin-top: var(--space-lg);
+  margin-bottom: var(--space-sm);
+}
+
+.backLink {
+  font-size: var(--fs-xs);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+.backLink:hover {
+  text-decoration: underline;
 }

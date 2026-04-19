@@ -4,42 +4,78 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
+const IconAudit = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+  </svg>
+);
+
+const IconBranding = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/>
+  </svg>
+);
+
+const IconDigital = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/>
+  </svg>
+);
+
+const IconCRM = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+  </svg>
+);
+
+const IconAI = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/>
+  </svg>
+);
+
+const IconStrategy = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+  </svg>
+);
+
 const SERVICES = [
   {
     id: "audit",
     title: "Маркетинговый аудит",
     desc: "Комплексная диагностика бизнеса: рынок, конкуренты, digital, репутация и точки роста.",
-    icon: "🔍",
+    icon: <IconAudit />,
   },
   {
     id: "branding",
     title: "Брендинг и упаковка",
     desc: "Позиционирование, ребрендинг, смыслы и подача бренда для роста доверия.",
-    icon: "🎨",
+    icon: <IconBranding />,
   },
   {
     id: "digital",
     title: "Сайты и digital",
     desc: "Лендинги, корпоративные сайты, web-app, личные кабинеты и интеграции.",
-    icon: "💻",
+    icon: <IconDigital />,
   },
   {
     id: "crm",
     title: "CRM и автоматизация",
     desc: "Внедрение Битрикс24, настройка воронок, автоматизация задач и продаж.",
-    icon: "⚙️",
+    icon: <IconCRM />,
   },
   {
     id: "ai",
     title: "AI и боты",
     desc: "Telegram-боты, AI-ассистенты, автоматизация коммуникаций и интеграция ИИ.",
-    icon: "🤖",
+    icon: <IconAI />,
   },
   {
     id: "strategy",
     title: "Стратегия и антикризис",
     desc: "Маркетинговые стратегии, антикризисные планы и воронки привлечения.",
-    icon: "🧭",
+    icon: <IconStrategy />,
   },
 ];
 
