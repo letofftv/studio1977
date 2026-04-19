@@ -2,10 +2,11 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import styles from "./page.module.css";
+import { fixTypography } from "@/utils/typography";
 
 export const metadata = {
-  title: "Направления работы — Studio 1977",
-  description: "Маркетинговый аудит, брендинг, сайты, CRM, лайк IT и антикризисная стратегия для бизнеса.",
+  title: "Услуги — Студия 1977",
+  description: "Маркетинговый аудит, стратегия, брендинг, digital, CRM, AI и event-продюсирование.",
 };
 
 const SERVICES = [
@@ -13,43 +14,78 @@ const SERVICES = [
     num: "01",
     id: "audit",
     title: "Маркетинговый аудит",
-    desc: "Находим, где бизнес теряет внимание, доверие и заявки. Даём понятную карту роста.",
-    tags: ["Аудит бренда", "Анализ конкурентов", "Точки касания", "Диагностика воронки"],
+    desc: "Комплексная диагностика бизнеса: рынок, конкуренты, digital, репутация, точки роста.",
+    tags: ["Аудит бренда", "Анализ конкурентов", "Аудит соцсетей", "Диагностика барьеров роста", "Аудит рекламы"],
   },
   {
     num: "02",
-    id: "branding",
-    title: "Брендинг и упаковка",
-    desc: "Делаем бренд понятным, живым и пригодным для продаж. Смыслы и визуальная система.",
-    tags: ["Позиционирование", "Tone of Voice", "Фирменный стиль", "Упаковка смыслов"],
+    id: "strategy",
+    title: "Маркетинговая стратегия",
+    desc: "Воронки привлечения, антикризисное планирование и стратегическое позиционирование.",
+    tags: ["Стратегия бренда", "Воронки привлечения", "Антикризисный маркетинг", "Стратегия в соцсетях"],
   },
   {
     num: "03",
-    id: "digital",
-    title: "Сайты и digital",
-    desc: "Проектируем лендинги и кабинеты с учётом логики клиента и интеграций.",
-    tags: ["Лендинги", "Корпоративные сайты", "Web-app", "Личные кабинеты"],
+    id: "branding",
+    title: "Брендинг и айдентика",
+    desc: "Позиционирование, визуальный язык и подача, которая выделяет.",
+    tags: ["Фирменный стиль", "Нейминг", "Брендбук", "Логотип", "Ребрендинг"],
   },
   {
     num: "04",
-    id: "crm",
-    title: "CRM и автоматизация",
-    desc: "Наводим порядок в продажах и задачах. Внедрение Битрикс24 под реальные процессы.",
-    tags: ["Внедрение CRM", "Настройка воронок", "Автоматизация", "Контроль сроков"],
+    id: "digital",
+    title: "Digital-разработка",
+    desc: "Лендинги, корпоративные сайты, web-app и интеграции.",
+    tags: ["Лендинги", "Корпоративные сайты", "Web-app", "E-commerce", "Интеграции"],
   },
   {
     num: "05",
-    id: "like-it",
-    title: "лайк IT",
-    desc: "ИИ-ассистенты, боты и автоматизация рутины без магического тумана.",
-    tags: ["Чат-боты", "AI-агенты", "RAG-системы", "Интеграции"],
+    id: "crm",
+    title: "CRM и автоматизация",
+    desc: "Внедрение Битрикс24, настройка воронок, автоматизация процессов.",
+    tags: ["Внедрение CRM", "Настройка воронок", "Автоматизация", "Интеграции с CRM"],
   },
   {
     num: "06",
-    id: "strategy",
-    title: "Стратегия и антикризис",
-    desc: "Трезвый план выхода из просадки. Разбираем продукт и пересобираем коммуникацию.",
-    tags: ["Разбор продукта", "Антикризис", "План действий", "Перезапуск"],
+    id: "ai",
+    title: "AI и боты",
+    desc: "Telegram-боты, AI-ассистенты, RAG-системы и автоматизация коммуникаций.",
+    tags: ["Чат-боты", "AI-агенты", "RAG-системы", "Голосовые ассистенты"],
+  },
+  {
+    num: "07",
+    id: "smm",
+    title: "SMM и контент",
+    desc: "Ведение соцсетей, контент-стратегия, Reels, фото и видеопродакшн.",
+    tags: ["Контент-план", "Ведение соцсетей", "Reels и Stories", "Фото и видео"],
+  },
+  {
+    num: "08",
+    id: "events",
+    title: "Event-продюсирование",
+    desc: "Иммерсивные мероприятия: от концепции до реализации.",
+    tags: ["Корпоративы", "Презентации", "Фестивали", "Деловые мероприятия"],
+  },
+  {
+    num: "09",
+    id: "production",
+    title: "Продакшн",
+    desc: "Фото, видео, монтаж и пост-продакшн высочайшего уровня.",
+    tags: ["Видеосъёмка", "Фотосъёмка", "Монтаж", "Motion-дизайн"],
+  },
+  {
+    num: "10",
+    id: "pr",
+    title: "PR и репутация",
+    desc: "Работа с репутацией, публикации в СМИ, лидерство мнений.",
+    tags: ["PR-кампании", "Публикации", "ORM", "Инфлюенс-маркетинг"],
+  },
+  {
+    num: "11",
+    id: "consulting",
+    title: "Бизнес-консалтинг",
+    desc: "Аналитика, unit-экономика, операционные процессы и масштабирование.",
+    tags: ["Бизнес-аналитика", "Unit-экономика", "Операционка", "Масштабирование"],
   },
 ];
 
@@ -60,13 +96,13 @@ export default function ServicesPage() {
       <main>
         <section className={styles.hero}>
           <div className="container">
-            <p className="section-label">Компетенции</p>
+            <p className="section-label">Наши компетенции</p>
             <h1 className={styles.heroTitle}>
-              Собираем не отдельные куски,<br />
-              а <span className="bronze-text">внятную систему.</span>
+              Crafting the<br />
+              <span className="bronze-text">uncommon.</span>
             </h1>
             <p className={styles.heroSub}>
-              Мультидисциплинарный подход: от аудита смыслов до внедрения ИИ-инструментов и CRM.
+              {fixTypography("Мультидисциплинарная практика на пересечении стратегии, дизайна и технологий.")}
             </p>
           </div>
         </section>
@@ -76,14 +112,14 @@ export default function ServicesPage() {
             {SERVICES.map((service, i) => (
               <Link
                 key={service.id}
-                href={service.id === "like-it" ? "/partners/like-it" : `/services/${service.id}`}
+                href={`/services/${service.id}`}
                 className={`${styles.serviceItem} ${i % 2 === 0 ? "bg-surface-low" : ""}`}
               >
                 <div className={styles.serviceLeft}>
                   <span className={styles.serviceNum}>{service.num}</span>
                   <div>
-                    <h2 className={styles.serviceTitle}>{service.title}</h2>
-                    <p className={styles.serviceDesc}>{service.desc}</p>
+                    <h2 className={styles.serviceTitle}>{fixTypography(service.title)}</h2>
+                    <p className={styles.serviceDesc}>{fixTypography(service.desc)}</p>
                   </div>
                 </div>
                 <div className={styles.serviceTags}>
@@ -96,9 +132,20 @@ export default function ServicesPage() {
           </div>
         </section>
 
+        <section className={styles.quote}>
+          <div className="container">
+            <div className={styles.quoteInner}>
+              <blockquote className={styles.quoteText}>
+                &ldquo;Дизайн — это не декоративная оболочка. Это артикуляция смысла через материал и пустоту.&rdquo;
+              </blockquote>
+              <p className={styles.quoteSrc}>Студия 1977 — Архитектура бренда</p>
+            </div>
+          </div>
+        </section>
+
         <section className={styles.cta}>
           <div className="container" style={{ textAlign: "center" }}>
-            <h2 className={styles.ctaTitle}>Есть задача?<br />Обсудим её.</h2>
+            <h2 className={styles.ctaTitle}>Обсудим ваш<br />проект.</h2>
             <Link href="/brief" className="btn btn-primary">Заполнить бриф</Link>
           </div>
         </section>

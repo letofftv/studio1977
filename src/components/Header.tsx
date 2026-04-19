@@ -25,8 +25,8 @@ export default function Header() {
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
       <div className={styles.inner}>
         <Link href="/" className={styles.logo}>
+          <span className={styles.logoText}>Студия</span>
           <span className={styles.logoMark}>1977</span>
-          <span className={styles.logoText}>СТУДИЯ</span>
         </Link>
 
         <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ""}`}>

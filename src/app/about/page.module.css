@@ -1,52 +1,159 @@
+/* ====== ABOUT PAGE — Studio 1977 ====== */
+
+/* Hero */
 .hero {
-  padding-top: calc(var(--header-h) + var(--space-3xl));
-  padding-bottom: var(--space-2xl);
+  padding-top: calc(var(--header-h) + var(--space-4xl));
+  padding-bottom: var(--space-3xl);
   background: var(--gradient-hero);
 }
 
 .title {
-  font-size: var(--fs-h1);
+  font-size: var(--fs-display);
   font-weight: var(--fw-black);
-  margin-bottom: var(--space-md);
+  line-height: 1.1;
+  max-width: 900px;
+  margin-bottom: var(--space-xl);
+  letter-spacing: var(--tracking-tighter);
 }
 
 .lead {
-  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
-  color: var(--color-text-secondary);
-  max-width: 640px;
+  font-size: 1.25rem;
   line-height: 1.8;
+  color: var(--color-text-secondary);
+  max-width: 720px;
 }
 
-/* Manifesto */
+/* ====== Manifesto ====== */
 .manifesto {
   background: var(--color-bg);
 }
 
 .manifestoGrid {
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: var(--space-2xl);
-  align-items: start;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--space-3xl);
+  align-items: center;
 }
 
-.manifestoText {
+.manifestoContent {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  font-size: 1.05rem;
+}
+
+.manifestoContent h2 {
+  font-size: var(--fs-h1);
+  margin-bottom: var(--space-sm);
+}
+
+.text {
+  font-size: 1.1rem;
+  line-height: 1.8;
   color: var(--color-text-secondary);
-  line-height: 1.9;
 }
 
-/* Principles */
-.principles {
-  background: var(--color-bg-elevated);
+.manifestoVisual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.principleGrid {
+.yearBig {
+  font-family: var(--font-heading);
+  font-size: clamp(6rem, 12vw, 14rem);
+  font-weight: var(--fw-black);
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.15;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  user-select: none;
+}
+
+.whoWeAre {
+  padding: var(--space-4xl) 0;
+}
+
+.whoLead {
+  max-width: 800px;
+  margin: var(--space-lg) auto;
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: var(--fw-medium);
+  line-height: 1.5;
+  color: var(--color-text);
+  letter-spacing: var(--tracking-tight);
+}
+
+.whoText {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  opacity: 0.85;
+}
+
+/* ====== Approach ====== */
+.approach {
+  background: var(--color-bg);
+}
+
+.approachGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--space-md);
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+.approachStep {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-lg) var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--gradient-card);
+  transition: all var(--duration-base) var(--ease-out);
+}
+
+.approachStep:hover {
+  border-color: var(--color-border-hover);
+  transform: translateY(-4px);
+}
+
+.stepNum {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: var(--fw-black);
+  color: var(--color-accent);
+  opacity: 0.35;
+  line-height: 1;
+}
+
+.stepTitle {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+}
+
+.stepDesc {
+  font-size: var(--fs-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+/* ====== Principles ====== */
+.principles {
+  /* bg-surface-low is applied via global class */
+}
+
+.principlesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-lg);
   margin-top: var(--space-xl);
 }
 
@@ -54,6 +161,16 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--gradient-card);
+  transition: all var(--duration-base) var(--ease-out);
+}
+
+.principleCard:hover {
+  border-color: var(--color-border-hover);
+  transform: translateY(-4px);
 }
 
 .principleCard h3 {
@@ -64,39 +181,41 @@
 .principleCard p {
   font-size: var(--fs-sm);
   color: var(--color-text-secondary);
+  line-height: 1.7;
 }
 
-.principleNum {
-  font-family: var(--font-heading);
-  font-size: 2rem;
-  font-weight: var(--fw-black);
-  color: var(--color-accent);
-  opacity: 0.3;
-}
-
-/* CTA */
-.ctaSection {
+/* ====== CTA ====== */
+.cta {
   text-align: center;
   background: var(--color-bg);
 }
 
-.ctaInner {
-  max-width: 600px;
-}
-
-.ctaTitle {
-  font-size: var(--fs-h2);
-  margin-bottom: var(--space-sm);
-}
-
-.ctaSub {
-  color: var(--color-text-secondary);
-  margin-bottom: var(--space-lg);
+/* ====== Responsive ====== */
+@media (max-width: 1024px) {
+  .approachGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
   .manifestoGrid {
     grid-template-columns: 1fr;
     gap: var(--space-lg);
+  }
+
+  .manifestoVisual {
+    order: -1;
+  }
+
+  .yearBig {
+    font-size: 5rem;
+  }
+
+  .approachGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .principlesGrid {
+    grid-template-columns: 1fr;
   }
 }

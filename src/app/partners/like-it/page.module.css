@@ -8,6 +8,7 @@
   transition: var(--theme-transition);
 }
 .heroContent { text-align: center; max-width: 800px; }
+.heroLogoWrapper { margin-bottom: var(--space-md); }
 .heroTitle {
   font-family: var(--font-heading);
   font-size: var(--fs-display);

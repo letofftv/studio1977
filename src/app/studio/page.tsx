@@ -2,10 +2,9 @@ import { cookies } from "next/headers";
 import { BitrixClient, BitrixSession } from "@/lib/bitrix-api";
 import styles from "./page.module.css";
 import StudioPageLayout from "./components/StudioPageLayout";
-import Link from "next/link";
 
 export const metadata = {
-  title: "Обзор работы — Студия 1977",
+  title: "Панель студии — Студия 1977",
   robots: "noindex, nofollow",
 };
 
@@ -24,6 +23,7 @@ export default async function StudioDashboard() {
 
   const client = new BitrixClient(session || undefined);
   
+  // Try fetching data if we have a session
   let projectsData: any = [];
   let leadsData: any = [];
   let tasksData: any = [];
@@ -50,50 +50,37 @@ export default async function StudioDashboard() {
 
   return (
     <StudioPageLayout session={session} error={errorState} title="Обзор работы">
-      <p className={styles.pageSubtitle}>Короткая сводка по проектам, лидам и задачам. Здесь видно, где всё спокойно, а где пора вмешаться.</p>
+      <p className={styles.subtitle}>
+        Короткая сводка по проектам, лидам и задачам. Здесь видно, где всё спокойно, а где пора вмешаться.
+      </p>
 
       {/* Stats */}
       <div className={styles.statsGrid}>
         <div className={styles.stat}>
           <span className={styles.statNum}>{projects.length}</span>
-          <div className={styles.statInfo}>
-            <span className={styles.statLabel}>Проектов в работе</span>
-            <span className={styles.statDesc}>Активные сделки и проекты в работе.</span>
-          </div>
+          <span className={styles.statLabel}>Проектов в работе</span>
         </div>
         <div className={styles.stat}>
           <span className={styles.statNum}>{leads.length}</span>
-          <div className={styles.statInfo}>
-            <span className={styles.statLabel}>Новых лидов</span>
-            <span className={styles.statDesc}>Обращения за выбранный период.</span>
-          </div>
+          <span className={styles.statLabel}>Новых лидов</span>
         </div>
         <div className={styles.stat}>
           <span className={styles.statNum}>{tasks.length}</span>
-          <div className={styles.statInfo}>
-            <span className={styles.statLabel}>Задач</span>
-            <span className={styles.statDesc}>Назначены на вас или вашу команду.</span>
-          </div>
+          <span className={styles.statLabel}>Задач</span>
         </div>
         <div className={styles.stat}>
           <span className={styles.statNum} style={{ color: "var(--color-warning)" }}>
             {tasks.filter((t: any) => t.deadline && new Date(t.deadline) < new Date()).length}
           </span>
-          <div className={styles.statInfo}>
-            <span className={styles.statLabel}>Просроченных</span>
-            <span className={styles.statDesc}>Задачи, у которых прошёл дедлайн.</span>
-          </div>
+          <span className={styles.statLabel}>Просроченных</span>
         </div>
       </div>
 
       {/* Projects */}
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
-          <div>
-            <h2 className={styles.sectionTitle}>Последние проекты</h2>
-            <p className={styles.sectionSub}>Проекты, по которым недавно были изменения или новые действия.</p>
-          </div>
-          <Link href="/studio/projects" className="btn btn-outline btn-sm">Все проекты</Link>
+          <h2 className={styles.sectionTitle}>Последние проекты</h2>
+          <span className={styles.sectionMeta}>{projects.length} активных</span>
         </div>
         <div className={styles.table}>
           <div className={styles.tableHead}>
@@ -104,7 +91,7 @@ export default async function StudioDashboard() {
             <span>Обновлено</span>
           </div>
           {projects.length > 0 ? (
-            projects.slice(0, 5).map((p: any) => (
+            projects.map((p: any) => (
               <div key={p.ID} className={styles.tableRow}>
                 <span className={styles.projectName}>{p.TITLE}</span>
                 <span>{p.COMPANY_TITLE || "—"}</span>
@@ -114,7 +101,7 @@ export default async function StudioDashboard() {
               </div>
             ))
           ) : (
-            <div className={styles.empty}>Пока нет проектов для отображения. Когда появятся сделки в CRM, они будут здесь.</div>
+            <div className={styles.empty}>Активных проектов пока нет.</div>
           )}
         </div>
       </section>
@@ -122,10 +109,8 @@ export default async function StudioDashboard() {
       {/* Leads */}
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
-          <div>
-            <h2 className={styles.sectionTitle}>Новые лиды</h2>
-            <p className={styles.sectionSub}>Входящие обращения, которые нужно разобрать и передать в работу.</p>
-          </div>
+          <h2 className={styles.sectionTitle}>Новые лиды</h2>
+          <span className={styles.sectionMeta}>{leads.length} новых</span>
         </div>
         <div className={styles.table}>
           <div className={styles.tableHead}>
@@ -136,7 +121,7 @@ export default async function StudioDashboard() {
             <span>Статус</span>
           </div>
           {leads.length > 0 ? (
-            leads.slice(0, 5).map((l: any) => (
+            leads.map((l: any) => (
               <div key={l.ID} className={styles.tableRow}>
                 <span className={styles.projectName}>{l.NAME} {l.LAST_NAME}</span>
                 <span>{l.COMPANY_TITLE || "—"}</span>
@@ -146,7 +131,7 @@ export default async function StudioDashboard() {
               </div>
             ))
           ) : (
-            <div className={styles.empty}>Новых лидов пока нет.</div>
+            <div className={styles.empty}>Новых обращений пока нет. Проверьте формы и каналы входа.</div>
           )}
         </div>
       </section>

@@ -9,13 +9,13 @@ export default function Footer() {
         <div className={styles.top}>
           <div className={styles.brand}>
             <div className={styles.logo}>
+              <span className={styles.logoText}>Студия</span>
               <span className={styles.logoMark}>1977</span>
-              <span className={styles.logoText}>СТУДИЯ</span>
             </div>
             <p className={styles.tagline}>
               Креативное агентство полного цикла.
               <br />
-              Маркетинг · Event · Брендинг · Digital
+              Маркетинг · Event · Брендинг · Цифровые решения
             </p>
           </div>
 
@@ -34,6 +34,14 @@ export default function Footer() {
               <Link href="/brief">Бриф</Link>
               <Link href="/contact">Контакты</Link>
               <Link href="/app">Личный кабинет</Link>
+            </div>
+
+            <div className={styles.col}>
+              <h4 className={styles.colTitle}>Партнёры</h4>
+              <Link href="/partners/like-it">
+                 <span style={{color: 'var(--color-primary)'}}>лайк IT</span><br/>
+                 <span style={{fontSize: '0.85em', color: 'var(--color-text-muted)'}}>ИИ и автоматизация</span>
+              </Link>
             </div>
 
             <div className={styles.col}>

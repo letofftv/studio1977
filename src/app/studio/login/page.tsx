@@ -35,7 +35,7 @@ export default function LoginPage() {
           
           <div className={styles.footer}>
             <p className={styles.hint}>
-              Доступ только для сотрудников и партнёров Studio 1977
+              Доступ только для сотрудников и партнёров Студия 1977
             </p>
             <Link href="/" className={styles.backLink}>
               ← Вернуться на сайт

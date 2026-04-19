@@ -4,7 +4,7 @@ import styles from "../page.module.css";
 import StudioPageLayout from "../components/StudioPageLayout";
 
 export const metadata = {
-  title: "Команда портала — Студия 1977",
+  title: "Команда — Студия 1977",
   robots: "noindex, nofollow",
 };
 
@@ -35,13 +35,10 @@ export default async function StudioTeamPage() {
   const users = Array.isArray(usersData) ? usersData : [];
 
   return (
-    <StudioPageLayout session={session} error={errorState} title="Команда портала">
+    <StudioPageLayout session={session} error={errorState} title="Команда студии">
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
-          <div>
-            <h2 className={styles.sectionTitle}>Сотрудники пространства</h2>
-            <p className={styles.sectionSub}>Сотрудники, у которых есть доступ к CRM и рабочему пространству Studio 1977.</p>
-          </div>
+          <h2 className={styles.sectionTitle}>Сотрудники портала</h2>
           <span className={styles.sectionMeta}>{users.length} человек</span>
         </div>
         <div className={styles.table}>
@@ -61,7 +58,7 @@ export default async function StudioTeamPage() {
               </div>
             ))
           ) : (
-            <div className={styles.empty}>Список сотрудников пуст или недоступен.</div>
+            <div className={styles.empty}>Никто не найден</div>
           )}
         </div>
       </section>

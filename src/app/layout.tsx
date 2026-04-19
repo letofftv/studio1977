@@ -3,16 +3,13 @@ import { ThemeEngine } from "@/lib/ThemeEngine";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: {
-    default: "Студия 1977: маркетинг, сайты, CRM, события и автоматизация для бизнеса",
-    template: "%s — Студия 1977",
-  },
+  title: "Студия 1977 — Креативное агентство",
   description:
-    "Студия 1977 помогает бизнесу в Крыму и за его пределами с маркетингом, брендингом, сайтами, CRM, ИИ-ботами, событиями и антикризисной упаковкой.",
+    "Маркетинг, event-продюсирование, брендинг, digital-разработка. Создаём проекты, которые работают.",
   openGraph: {
-    title: "Студия 1977",
+    title: "Студия 1977 — Креативное агентство",
     description:
-      "Соединяем маркетинг, брендинг, сайты и CRM в одну рабочую систему.",
+      "Маркетинг, event-продюсирование, брендинг, digital-разработка.",
     type: "website",
     locale: "ru_RU",
   },
@@ -25,9 +22,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" data-theme="night" suppressHydrationWarning>
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-      </head>
       <body>
         <ThemeEngine />
         {children}

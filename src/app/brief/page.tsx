@@ -5,14 +5,14 @@ import Footer from "@/components/Footer";
 import styles from "./page.module.css";
 
 const SERVICE_OPTIONS = [
-  "Маркетинговый аудит", 
-  "Стратегия продвижения", 
-  "Брендинг и упаковка", 
+  "Маркетинговый аудит",
+  "Стратегия продвижения",
+  "Брендинг и упаковка",
   "Сайт или лендинг",
-  "CRM и автоматизация", 
-  "ИИ, бот или помощник", 
-  "Event и партнёрские проекты", 
-  "Коммерческое предложение", 
+  "CRM и автоматизация",
+  "ИИ, бот или цифровой помощник",
+  "Event и партнёрские проекты",
+  "Коммерческое предложение",
   "Пока не знаю, нужна диагностика"
 ];
 
@@ -68,7 +68,7 @@ export default function BriefPage() {
       });
       setSent(true);
     } catch {
-      alert("Ошибка отправки. Попробуйте ещё раз или свяжитесь с нами напрямую.");
+      alert("Произошла ошибка. Попробуйте ещё раз или свяжитесь с нами напрямую.");
     } finally {
       setSending(false);
     }
@@ -82,7 +82,7 @@ export default function BriefPage() {
           <section className={styles.hero}>
             <div className={`container ${styles.successWrap}`}>
               <span className={styles.successIcon}>✓</span>
-              <h1 className={styles.title}>Бриф отправлен</h1>
+              <h1 className={styles.title}>Бриф получен</h1>
               <p className={styles.lead}>
                 Спасибо. Задачу получили. Посмотрим вводные и вернёмся с понятным следующим шагом.
               </p>
@@ -101,10 +101,10 @@ export default function BriefPage() {
       <main>
         <section className={styles.hero}>
           <div className="container">
-            <p className="section-label">Бриф</p>
-            <h1 className={styles.title}>Расскажите о задаче, а мы соберём из этого понятный план</h1>
+            <p className="section-label">Расскажите о задаче</p>
+            <h1 className={styles.title}>Соберём из ваших вводных понятный план</h1>
             <p className={styles.lead}>
-              Бриф — не экзамен. Нам важно понять контекст, боль и ожидания. Чем честнее вводные, тем точнее будет предложение.
+              Бриф не экзамен. Нам важно понять контекст, боль, ожидания и ограничения. Чем честнее вводные, тем точнее будет наше предложение.
             </p>
           </div>
         </section>
@@ -112,6 +112,7 @@ export default function BriefPage() {
         <section className={`section ${styles.formSection}`}>
           <div className="container">
             <form className={styles.form} onSubmit={handleSubmit}>
+              {/* Contact info */}
               <fieldset className={styles.fieldset}>
                 <legend className={styles.legend}>Контактная информация</legend>
                 <div className={styles.row}>
@@ -136,8 +137,9 @@ export default function BriefPage() {
                 </div>
               </fieldset>
 
+              {/* Project details */}
               <fieldset className={styles.fieldset}>
-                <legend className={styles.legend}>О задаче</legend>
+                <legend className={styles.legend}>О проекте</legend>
                 <div className={styles.field}>
                   <label>Что сейчас ближе к вашей задаче?</label>
                   <div className={styles.checkboxGroup}>
@@ -158,7 +160,7 @@ export default function BriefPage() {
                   <input id="brief-deadline" name="deadline" type="text" placeholder="Когда нужно запустить или получить результат?" />
                 </div>
                 <div className={styles.field}>
-                  <label>Бюджет (ориентир)</label>
+                  <label>Бюджет</label>
                   <div className={styles.checkboxGroup}>
                     {BUDGET_OPTIONS.map((b) => (
                       <label key={b} className={styles.chip}>
@@ -170,18 +172,17 @@ export default function BriefPage() {
                 </div>
                 <div className={styles.field}>
                   <label htmlFor="brief-extra">Дополнительно</label>
-                  <textarea id="brief-extra" name="extra" rows={3} placeholder="Ссылки на сайт, соцсети, референсы или любые важные детали" />
+                  <textarea id="brief-extra" name="extra" rows={3} placeholder="Ссылки, референсы, пожелания или важные детали" />
                 </div>
               </fieldset>
+              
+              <p className={styles.footerNote}>
+                Мы не передаём ваши данные третьим лицам. Если проект требует NDA или аккуратного обращения с материалами — просто укажите это в комментарии.
+              </p>
 
-              <div className={styles.formFooter}>
-                <p className={styles.disclaimer}>
-                  Мы используем информацию только для подготовки ответа по задаче. Если проект требует NDA, просто укажите это в комментарии.
-                </p>
-                <button type="submit" className="btn btn-primary" disabled={sending}>
-                  {sending ? "Отправляем..." : "Отправить бриф"}
-                </button>
-              </div>
+              <button type="submit" className="btn btn-primary" disabled={sending}>
+                {sending ? "Отправляем..." : "Отправить бриф"}
+              </button>
             </form>
           </div>
         </section>

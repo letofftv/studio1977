@@ -1,0 +1,13 @@
+<svg viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .text-like { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 800; font-size: 64px; fill: #448899; }
+      .text-it { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 900; font-size: 64px; fill: currentColor; }
+      .text-sub { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 500; font-size: 20px; fill: #8a8691; letter-spacing: 0.1em; }
+      .text-sub-bold { font-weight: 700; fill: #448899; }
+    </style>
+  </defs>
+  <text x="10" y="65" class="text-like">лайк</text>
+  <text x="185" y="65" class="text-it">IT</text>
+  <text x="15" y="92" class="text-sub">студия <tspan class="text-sub-bold">УМНЫХ</tspan> решений</text>
+</svg>

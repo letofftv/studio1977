@@ -5,16 +5,16 @@ import styles from "./page.module.css";
 
 export const metadata = {
   title: "Кейсы — Студия 1977",
-  description: "Портфолио проектов Студии 1977: маркетинг, event, брендинг, digital.",
+  description: "Портфолио проектов Студии 1977: маркетинг, event, брендинг, цифровые решения.",
 };
 
 const CASES = [
-  { slug: "atlas-festival", title: "Atlas Festival 2024", category: "Event · Production", year: "2024", color: "#c8a45a" },
+  { slug: "atlas-festival", title: "Atlas Festival 2024", category: "Event · Производство", year: "2024", color: "#c8a45a" },
   { slug: "nova-brand", title: "Nova — запуск бренда", category: "Брендинг · Маркетинг", year: "2024", color: "#7b68ee" },
-  { slug: "echo-digital", title: "Echo Digital Platform", category: "Digital · Стратегия", year: "2023", color: "#4ecdc4" },
+  { slug: "echo-digital", title: "Echo Digital Platform", category: "Цифровые решения · Стратегия", year: "2023", color: "#4ecdc4" },
   { slug: "rhythm-event", title: "Rhythm Night Series", category: "Event · Маркетинг", year: "2023", color: "#ff6b6b" },
-  { slug: "forma-rebrand", title: "Forma — ребрендинг", category: "Брендинг · Digital", year: "2023", color: "#f7b267" },
-  { slug: "pulse-content", title: "Pulse Content Strategy", category: "Маркетинг · Production", year: "2022", color: "#a8e6cf" },
+  { slug: "forma-rebrand", title: "Forma — ребрендинг", category: "Брендинг · Цифровые решения", year: "2023", color: "#f7b267" },
+  { slug: "pulse-content", title: "Pulse Content Strategy", category: "Маркетинг · Производство", year: "2022", color: "#a8e6cf" },
 ];
 
 export default function CasesPage() {
