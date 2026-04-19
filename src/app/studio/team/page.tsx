@@ -30,6 +30,13 @@ export default async function StudioTeamPage() {
     if (usersData.error === "AUTH_EXPIRED") {
       errorState = "AUTH_EXPIRED";
     }
+    const updatedSession = client.getSession();
+    if (updatedSession && updatedSession.accessToken !== session.accessToken) {
+      const cs = await cookies();
+      cs.set("bitrix_session", JSON.stringify(updatedSession), {
+        httpOnly: true, secure: process.env.NODE_ENV === "production", path: "/", maxAge: 3600 * 24 * 7,
+      });
+    }
   }
 
   const users = Array.isArray(usersData) ? usersData : [];

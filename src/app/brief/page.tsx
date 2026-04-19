@@ -3,6 +3,7 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import styles from "./page.module.css";
+import { fixTypography } from "@/utils/typography";
 
 const SERVICE_OPTIONS = [
   "Маркетинговый аудит",
@@ -102,9 +103,9 @@ export default function BriefPage() {
         <section className={styles.hero}>
           <div className="container">
             <p className="section-label">Расскажите о задаче</p>
-            <h1 className={styles.title}>Соберём из ваших вводных понятный план</h1>
+            <h1 className={styles.title}>{fixTypography("Соберём из ваших вводных понятный план")}</h1>
             <p className={styles.lead}>
-              Бриф не экзамен. Нам важно понять контекст, боль, ожидания и ограничения. Чем честнее вводные, тем точнее будет наше предложение.
+              {fixTypography("Нам важно понять контекст, ожидания и ограничения. Чем честнее вводные, тем точнее предложение.")}
             </p>
           </div>
         </section>
@@ -177,7 +178,7 @@ export default function BriefPage() {
               </fieldset>
               
               <p className={styles.footerNote}>
-                Мы не передаём ваши данные третьим лицам. Если проект требует NDA или аккуратного обращения с материалами — просто укажите это в комментарии.
+                {fixTypography("Мы не передаём ваши данные третьим лицам. Если требуется NDA — укажите это в комментарии.")}
               </p>
 
               <button type="submit" className="btn btn-primary" disabled={sending}>

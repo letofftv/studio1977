@@ -101,6 +101,20 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* Quote */}
+        <section className="section" style={{ background: 'var(--color-surface)', padding: 'var(--space-3xl) 0' }}>
+          <div className="container">
+            <div style={{ borderLeft: '3px solid var(--color-accent)', paddingLeft: 'var(--space-xl)' }}>
+              <blockquote style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--fs-h2)', fontWeight: 'var(--fw-bold)', lineHeight: 1.3, marginBottom: 'var(--space-lg)', letterSpacing: 'var(--tracking-tight)' }}>
+                {fixTypography("\u00ab\u0425\u043e\u0440\u043e\u0448\u0438\u0439 \u043f\u0440\u043e\u0435\u043a\u0442 \u043d\u0430\u0447\u0438\u043d\u0430\u0435\u0442\u0441\u044f \u043d\u0435 \u0441 \u0438\u0434\u0435\u0438, \u0430 \u0441 \u0447\u0435\u0441\u0442\u043d\u043e\u0433\u043e \u0440\u0430\u0437\u0433\u043e\u0432\u043e\u0440\u0430 \u043e \u0442\u043e\u043c, \u0447\u0442\u043e \u043d\u0430 \u0441\u0430\u043c\u043e\u043c \u0434\u0435\u043b\u0435 \u043f\u0440\u043e\u0438\u0441\u0445\u043e\u0434\u0438\u0442.\u00bb")}
+              </blockquote>
+              <p style={{ fontSize: '0.85rem', fontWeight: 'var(--fw-semibold)', letterSpacing: '0.15em', textTransform: 'uppercase' as const, color: 'var(--color-accent)' }}>
+                Студия 1977 — Философия работы
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Principles */}
         <section className={`section ${styles.principles} bg-surface-low`}>
           <div className="container">

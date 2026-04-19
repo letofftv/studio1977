@@ -47,24 +47,70 @@ export class BitrixClient {
   }
 
   /**
+   * Refresh expired token
+   */
+  async refreshSession(): Promise<boolean> {
+    if (!this.session?.refreshToken) return false;
+
+    try {
+      const res = await fetch(
+        `https://oauth.bitrix.info/oauth/token/?grant_type=refresh_token&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&refresh_token=${this.session.refreshToken}`
+      );
+      const data = await res.json();
+
+      if (data.error) {
+        console.error("Bitrix refresh error:", data.error_description || data.error);
+        return false;
+      }
+
+      this.session = {
+        accessToken: data.access_token,
+        refreshToken: data.refresh_token,
+        expiresAt: Date.now() + data.expires_in * 1000,
+        userId: this.session.userId,
+        domain: this.session.domain,
+      };
+      return true;
+    } catch (err) {
+      console.error("Bitrix refresh network error:", err);
+      return false;
+    }
+  }
+
+  /**
+   * Get current (possibly refreshed) session
+   */
+  getSession(): BitrixSession | null {
+    return this.session;
+  }
+
+  /**
    * Call REST Method
    */
   async call(method: string, params: Record<string, any> = {}) {
     if (!this.session) {
-      // If no session, fallback to Webhook if available (system-wide requests)
+      // No session → use webhook for system-wide requests
       const WEBHOOK_URL = "https://1977likeit.bitrix24.ru/rest/1/bt2z4jtdry36b1m2";
-      const res = await fetch(`${WEBHOOK_URL}/${method}.json`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(params),
-      });
-      return res.json();
+      try {
+        const res = await fetch(`${WEBHOOK_URL}/${method}.json`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(params),
+          next: { revalidate: 60 }, // cache for 60s to avoid rate limits
+        });
+        return res.json();
+      } catch (err) {
+        console.error(`Bitrix Webhook Error (${method}):`, err);
+        return { error: "NETWORK_ERROR", details: err };
+      }
     }
 
-    // Refresh token if expired (simplified for MVP)
-    if (Date.now() > this.session.expiresAt) {
-      // Token refreshing logic would go here
-      console.warn("Bitrix token expired");
+    // Auto-refresh if token is close to expiring (within 5 minutes)
+    if (Date.now() > this.session.expiresAt - 5 * 60 * 1000) {
+      const refreshed = await this.refreshSession();
+      if (!refreshed) {
+        return { error: "AUTH_EXPIRED", details: "Token refresh failed" };
+      }
     }
 
     const url = `https://${this.session.domain}/rest/${method}.json?auth=${this.session.accessToken}`;
@@ -80,7 +126,11 @@ export class BitrixClient {
       if (data.error) {
         console.error(`Bitrix API Error (${method}):`, data.error_description || data.error);
         if (data.error === "expired_token" || data.error === "invalid_token") {
-          // Token expired, needs re-auth
+          // Try one more refresh
+          const refreshed = await this.refreshSession();
+          if (refreshed) {
+            return this.call(method, params); // Retry with new token
+          }
           return { error: "AUTH_EXPIRED", details: data.error };
         }
       }

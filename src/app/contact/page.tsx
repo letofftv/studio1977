@@ -3,6 +3,7 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import styles from "./page.module.css";
+import { fixTypography } from "@/utils/typography";
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
@@ -19,9 +20,9 @@ export default function ContactPage() {
         <section className={styles.hero}>
           <div className="container">
             <p className="section-label">Обратная связь</p>
-            <h1 className={styles.title}>Давайте обсудим, что нужно вашему проекту</h1>
+            <h1 className={styles.title}>{fixTypography("Давайте обсудим, что нужно вашему проекту")}</h1>
             <p className={styles.lead}>
-              Можно прийти с готовым ТЗ, а можно с коротким сообщением в духе «у нас всё есть, но ничего не работает как надо». Мы разберёмся и предложим нормальную точку старта.
+              {fixTypography("Можно прийти с готовым ТЗ, а можно просто рассказать, что не так. Мы разберёмся и предложим точку старта.")}
             </p>
           </div>
         </section>
@@ -34,19 +35,19 @@ export default function ContactPage() {
                 <div className={styles.infoBlock}>
                   <h3 className={styles.infoTitle}>Написать</h3>
                   <a href="mailto:hello@studio1977.ru" className={styles.infoValue}>hello@studio1977.ru</a>
-                  <p className={styles.infoHint}>Подходит для запросов, брифов, презентаций и документов.</p>
+                  <p className={styles.infoHint}>{fixTypography("Подходит для запросов, брифов и документов.")}</p>
                 </div>
                 
                 <div className={styles.infoBlock}>
                   <h3 className={styles.infoTitle}>Позвонить</h3>
-                  <a href="tel:+79001234567" className={styles.infoValue}>+7 900 123-45-67</a>
-                  <p className={styles.infoHint}>Если нужно быстро понять, можем ли быть полезны.</p>
+                  <a href="tel:+79788545123" className={styles.infoValue}>+7 978 85 45 123</a>
+                  <p className={styles.infoHint}>{fixTypography("Если нужно быстро понять, можем ли мы быть полезны.")}</p>
                 </div>
                 
                 <div className={styles.infoBlock}>
                   <h3 className={styles.infoTitle}>Где работаем</h3>
                   <p className={styles.infoValue}>Республика Крым</p>
-                  <p className={styles.infoHint}>Работаем с крымскими проектами и задачами за пределами региона удалённо.</p>
+                  <p className={styles.infoHint}>{fixTypography("Работаем с крымскими проектами и задачами за пределами региона удалённо.")}</p>
                 </div>
                 
                 <div className={styles.infoBlock}>
@@ -55,7 +56,7 @@ export default function ContactPage() {
                     <a href="https://t.me/letoff_tv" className={styles.socialLink}>Telegram</a>
                     <a href="#" className={styles.socialLink}>WhatsApp</a>
                   </div>
-                  <p className={styles.infoHint}>Для первого контакта достаточно пары предложений о задаче.</p>
+                  <p className={styles.infoHint}>{fixTypography("Для первого контакта достаточно пары предложений о задаче.")}</p>
                 </div>
               </div>
 
@@ -79,7 +80,7 @@ export default function ContactPage() {
                         <li>есть ли сайт, соцсети, CRM или текущие материалы</li>
                       </ul>
                       <p className={styles.formHint}>
-                        Не страшно, если пока нет точной формулировки. Задача часто становится понятной только после первого разговора.
+                        {fixTypography("Не страшно, если пока нет точной формулировки. Задача часто становится понятной только после первого разговора.")}
                       </p>
                     </div>
 
