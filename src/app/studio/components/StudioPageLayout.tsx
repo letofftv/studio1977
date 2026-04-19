@@ -33,9 +33,9 @@ export default function StudioPageLayout({ session, error, title, children }: Pr
         <div className={styles.authError}>
           <h2>Сессия истекла</h2>
           <p>Ваш токен Битрикс24 больше не действителен. Пожалуйста, обновите вход.</p>
-          <Link href="/api/auth/logout" className="btn btn-primary" style={{ marginTop: "24px" }}>
+          <a href="/api/auth/logout" className="btn btn-primary" style={{ marginTop: "24px" }}>
             Обновить сессию
-          </Link>
+          </a>
         </div>
       </div>
     );

@@ -28,9 +28,9 @@ export default function LoginPage() {
           </div>
           
           <div className={styles.actions}>
-            <Link href="/api/auth/login" className="btn btn-primary" style={{ width: '100%' }}>
+            <a href="/api/auth/login" className="btn btn-primary" style={{ width: '100%' }}>
               Войти через Битрикс24
-            </Link>
+            </a>
           </div>
           
           <div className={styles.footer}>

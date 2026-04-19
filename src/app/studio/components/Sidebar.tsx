@@ -39,9 +39,9 @@ export default function Sidebar() {
       </nav>
 
       <div className={styles.sidebarFooter}>
-        <Link href="/api/auth/logout" className={styles.sidebarLogout}>
+        <a href="/api/auth/logout" className={styles.sidebarLogout}>
           Выйти из системы
-        </Link>
+        </a>
         <Link href="/" className={styles.sidebarBack}>
           ← На сайт
         </Link>
